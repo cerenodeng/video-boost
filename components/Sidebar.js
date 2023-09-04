@@ -18,8 +18,9 @@ export default function Sidebar({ title, menus, user }) {
             className={`${pathname == menu.href ?
               "text-neutral-700 bg-neutral-200" :
               "text-neutral-50 bg-neutral-900 hover:text-neutral-200 hover:bg-neutral-700"} 
-              px-8 py-5 text-lg font-semibold`
+              flex gap-x-3 px-8 py-5 text-lg font-semibold items-center`
             }>
+            {menu.icon}
             {menu.name}
           </Link>
         ))}

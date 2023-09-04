@@ -1,3 +1,4 @@
+import { SettingIcon, VideoIcon } from '@/components/Icon';
 import Sidebar from '@/components/Sidebar';
 
 export default function AdminLayout({ children }) {
@@ -6,8 +7,8 @@ export default function AdminLayout({ children }) {
     url: '/admin',
   };
   const menus = [
-    { id: 1, name: 'Videos', url: '/admin/videos' },
-    { id: 2, name: 'Settings', url: '/admin/settings' },
+    { id: 1, name: 'Videos', url: '/admin/videos', icon: <VideoIcon /> },
+    { id: 2, name: 'Settings', url: '/admin/settings', icon: <SettingIcon /> },
   ];
   const user = {
     avatar: '/demo-avatar.jpg',
