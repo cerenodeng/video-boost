@@ -18,7 +18,7 @@ export default function AdminLayout({ children }) {
   return (
     <div className="flex">
       <Sidebar title={title} menus={menus} user={user} />
-      {children}
+      <div className="flex flex-col gap-y-10 w-full p-10">{children}</div>
     </div>
   );
 }

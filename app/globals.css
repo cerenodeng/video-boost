@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+	@apply text-3xl font-bold;
+}
+
+th {
+	@apply p-3 bg-neutral-100 text-xl font-semibold text-left;
+}
+
+td {
+	@apply p-4 text-lg font-normal;
+}
