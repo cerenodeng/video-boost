@@ -6,10 +6,26 @@ h1 {
 	@apply text-3xl font-bold;
 }
 
-th {
+table {
+	@apply table-fixed divide-neutral-200 border-neutral-200 divide-y border-b;
+}
+
+thead tr {
+	@apply divide-neutral-200/50 divide-x;
+}
+
+thead tr th {
 	@apply p-3 bg-neutral-100 text-xl font-semibold text-left;
 }
 
-td {
+tbody {
+	@apply divide-neutral-100 divide-y;
+}
+
+tbody tr {
+	@apply divide-neutral-100 divide-x cursor-pointer hover:bg-emerald-50;
+}
+
+tbody tr td {
 	@apply p-4 text-lg font-normal;
 }
