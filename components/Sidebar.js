@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { AddIcon } from './Icon';
 
 export default function Sidebar({ title, menus, user }) {
   const pathname = usePathname();
@@ -17,12 +18,17 @@ export default function Sidebar({ title, menus, user }) {
             className={`${pathname == menu.url ?
               "text-neutral-700 bg-neutral-200" :
               "text-neutral-50 bg-neutral-900 hover:text-neutral-200 hover:bg-neutral-700"} 
-              flex gap-x-3 px-8 py-5 text-lg font-semibold items-center`
+              relative flex gap-x-3 px-8 py-5 text-lg font-semibold items-center`
             }
             key={menu.id}
           >
             {menu.icon}
-            {menu.name}
+            <div>{menu.name}</div>
+            {pathname == menu.url &&
+              <button className="absolute inset-y-0 -right-4 z-10" onClick={() => location = `${menu.url}/add`}>
+                <AddIcon />
+              </button>
+            }
           </Link>
         ))}
       </nav>
@@ -31,6 +37,7 @@ export default function Sidebar({ title, menus, user }) {
           <Image
             src={user.avatar}
             alt={user.name}
+            sizes="1vw"
             fill={true}
             className="rounded-full"
           />

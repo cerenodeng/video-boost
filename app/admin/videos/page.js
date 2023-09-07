@@ -9,7 +9,6 @@ export default function Videos() {
 
   return (
     <div className="flex flex-col gap-y-10">
-      <h1>Videos</h1>
       <DataTable data={{ headers: ['Title', 'URL', 'Views'], items: videos }} />
     </div>
   );
