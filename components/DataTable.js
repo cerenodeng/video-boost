@@ -15,7 +15,7 @@ export default function DataTable({ data }) {
           ))}
         </tr>
       </thead>
-      <tbody className="">
+      <tbody>
         {data.items.map((item, index) => (
           <tr data-link={item[0]} onClick={onClick} key={index}>
             {[...Array(item.length - 1).keys()].map((key, index) => (
