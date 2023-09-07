@@ -24,7 +24,7 @@ export default function Sidebar({ title, menus, user }) {
           >
             {menu.icon}
             <div>{menu.name}</div>
-            {pathname == menu.url &&
+            {pathname == menu.url && menu.add &&
               <button className="absolute inset-y-0 -right-4 z-10" onClick={() => location = `${menu.url}/add`}>
                 <AddIcon />
               </button>

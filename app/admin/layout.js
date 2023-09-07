@@ -7,8 +7,8 @@ export default function AdminLayout({ children }) {
     url: '/admin',
   };
   const menus = [
-    { id: 1, name: 'Videos', url: '/admin/videos', icon: <VideoIcon /> },
-    { id: 2, name: 'Settings', url: '/admin/settings', icon: <SettingIcon /> },
+    { id: 1, name: 'Videos', url: '/admin/videos', icon: <VideoIcon />, add: true },
+    { id: 2, name: 'Settings', url: '/admin/settings', icon: <SettingIcon />, add: false },
   ];
   const user = {
     avatar: '/demo-avatar.jpg',
