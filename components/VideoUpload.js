@@ -1,15 +1,43 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PlusIcon } from './Icon';
 
 export default function VideoUpload() {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
+  const uploadButton = useRef(null);
   const inputFile = useRef(null);
+  // uploadButton.current.disabled = true;
+
+  useEffect(() => {
+    async function uploadFile() {
+      if (file) {
+        const response = await fetch('https://httpbin.org/post', {
+          method: 'POST',
+          body: file,
+          headers: {
+            'content-type': file.type,
+            'content-length': `${file.size}`
+          }
+        });
+        console.log(await response.json());
+        uploadButton.current.disabled = false;
+      }
+    }
+    uploadButton.current.disabled = true;
+    uploadFile();
+    return () => {
+      setFile(null);
+      setError('');
+    };
+  }, [file]);
 
   function onAddClick(event) {
     event.preventDefault();
-    inputFile.current.click();
+    if (!file) {
+      inputFile.current.click();
+      console.log(new Date());
+    }
   }
 
   function onFileChange(event) {
@@ -17,27 +45,33 @@ export default function VideoUpload() {
     if (!event.target.files) {
       return;
     }
-    setFile(event.target.files[0]);
-    if (event.target.files[0]?.type != 'video/mp4') {
+    const targetFile = event.target.files[0];
+    if (targetFile.type != 'video/mp4') {
       setError('Only .mp4 file can be uploaded');
       return;
     }
-    if ((event.target.files[0]?.size / 1000000) >= 20) {
+    if ((targetFile.size / 1000000) >= 20) {
       setError('The file size must less than 20 MB');
       return;
     }
     setError('');
+    setFile(targetFile);
   }
 
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-2 items-center">
       <div className={`${file && error != '' ? '' : 'hidden'} text-red-500`}>{error}</div>
       <div className={`${file && error == '' ? '' : 'hidden'} text-base font-semibold`}>{`${file?.name}, ${(file?.size / 1000000).toFixed(1)} MB`}</div>
-      <button className="flex gap-x-2 px-5 py-2 w-fit bg-white self-center items-center rounded hover:bg-emerald-50" onClick={onAddClick}>
+      <button ref={uploadButton} className="flex gap-x-2 px-5 py-2 w-fit bg-white self-center items-center rounded cursor-pointer hover:bg-emerald-50" onClick={onAddClick}>
         <PlusIcon />
         <div className="text-lg">Video</div>
       </button>
-      <input type="file" className="hidden" ref={inputFile} onChange={onFileChange} />
+      <input
+        type="file"
+        ref={inputFile}
+        className="hidden"
+        onChange={onFileChange}
+      />
     </div>
   );
 }
