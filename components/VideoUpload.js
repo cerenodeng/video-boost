@@ -7,7 +7,6 @@ export default function VideoUpload() {
   const [error, setError] = useState('');
   const uploadButton = useRef(null);
   const inputFile = useRef(null);
-  // uploadButton.current.disabled = true;
 
   useEffect(() => {
     async function uploadFile() {
@@ -20,15 +19,16 @@ export default function VideoUpload() {
             'content-length': `${file.size}`
           }
         });
-        console.log(await response.json());
+        const result = await response.json();
+        console.log(result);
         uploadButton.current.disabled = false;
+        setFile(null);
       }
     }
-    uploadButton.current.disabled = true;
     uploadFile();
     return () => {
-      setFile(null);
-      setError('');
+      // setFile(null);
+      // setError('');
     };
   }, [file]);
 
@@ -36,16 +36,15 @@ export default function VideoUpload() {
     event.preventDefault();
     if (!file) {
       inputFile.current.click();
-      console.log(new Date());
     }
   }
 
   function onFileChange(event) {
     event.preventDefault();
-    if (!event.target.files) {
+    if (!event.currentTarget.files) {
       return;
     }
-    const targetFile = event.target.files[0];
+    const targetFile = event.currentTarget.files[0];
     if (targetFile.type != 'video/mp4') {
       setError('Only .mp4 file can be uploaded');
       return;
@@ -54,24 +53,30 @@ export default function VideoUpload() {
       setError('The file size must less than 20 MB');
       return;
     }
+    uploadButton.current.disabled = true;
     setError('');
     setFile(targetFile);
   }
 
   return (
-    <div className="flex flex-col gap-y-2 items-center">
+    <form className="flex flex-col gap-y-2 items-center">
       <div className={`${file && error != '' ? '' : 'hidden'} text-red-500`}>{error}</div>
       <div className={`${file && error == '' ? '' : 'hidden'} text-base font-semibold`}>{`${file?.name}, ${(file?.size / 1000000).toFixed(1)} MB`}</div>
-      <button ref={uploadButton} className="flex gap-x-2 px-5 py-2 w-fit bg-white self-center items-center rounded cursor-pointer hover:bg-emerald-50" onClick={onAddClick}>
+      <button
+        ref={uploadButton}
+        type="button"
+        className={`${file && error == '' ? 'cursor-wait' : 'cursor-pointer'} flex gap-x-2 px-5 py-2 w-fit bg-white self-center items-center rounded hover:bg-emerald-50`}
+        onClick={onAddClick}
+      >
         <PlusIcon />
         <div className="text-lg">Video</div>
       </button>
       <input
-        type="file"
         ref={inputFile}
+        type="file"
         className="hidden"
         onChange={onFileChange}
       />
-    </div>
+    </form>
   );
 }
