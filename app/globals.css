@@ -6,6 +6,10 @@ h1 {
 	@apply text-3xl font-bold;
 }
 
+h2 {
+	@apply text-2xl font-semibold;
+}
+
 table {
 	@apply table-fixed divide-neutral-200 border-neutral-200 divide-y border-b;
 }
