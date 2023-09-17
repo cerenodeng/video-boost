@@ -29,3 +29,19 @@ export function PlusIcon() {
     </svg>
   );
 }
+
+export function PlayIcon() {
+  return (
+    <svg className="w-5 h-5 ml-1 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 16">
+      <path d="M0 .984v14.032a1 1 0 0 0 1.506.845l12.006-7.016a.974.974 0 0 0 0-1.69L1.506.139A1 1 0 0 0 0 .984Z" />
+    </svg>
+  );
+}
+
+export function PauseIcon() {
+  return (
+    <svg className="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 10 16">
+      <path fillRule="evenodd" d="M0 .8C0 .358.32 0 .714 0h1.429c.394 0 .714.358.714.8v14.4c0 .442-.32.8-.714.8H.714a.678.678 0 0 1-.505-.234A.851.851 0 0 1 0 15.2V.8Zm7.143 0c0-.442.32-.8.714-.8h1.429c.19 0 .37.084.505.234.134.15.209.354.209.566v14.4c0 .442-.32.8-.714.8H7.857c-.394 0-.714-.358-.714-.8V.8Z" clipRule="evenodd" />
+    </svg>
+  );
+}
