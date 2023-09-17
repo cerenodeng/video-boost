@@ -61,7 +61,7 @@ export default function VideoUpload() {
 
   return (
     <form className="flex flex-col gap-y-2 items-center">
-      <ProgressBar progress={50} />
+      <ProgressBar progress={50} text={50} />
       <div className={`${file && error != '' ? '' : 'hidden'} text-red-500`}>{error}</div>
       <div className={`${file && error == '' ? '' : 'hidden'} text-base font-semibold`}>{`${file?.name}, ${(file?.size / 1000000).toFixed(1)} MB`}</div>
       <button
