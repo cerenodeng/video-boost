@@ -34,7 +34,19 @@ export default function VideoPreview() {
 
   return (
     <div className="flex flex-col gap-y-3 absolute right-0 top-0 w-[390px] h-fit">
-      <video ref={video} src="/demo-video.mp4" controls></video>
+      <div className="relative">
+        <video ref={video} src="/demo-video.mp4" controls></video>
+        <div className="absolute inset-0 flex flex-col items-center justify-evenly">
+          {video.current?.currentTime > 3 && video.current?.currentTime < 7 ?
+            <>
+              <button className="w-48 p-4 bg-neutral-50 opacity-90 hover:bg-emerald-100">Why?</button>
+              <button className="w-48 p-4 bg-neutral-50 opacity-90 hover:bg-emerald-100">Case Study</button>
+              <button className="w-48 p-4 bg-neutral-50 opacity-90 hover:bg-emerald-100">About Us</button>
+            </>
+            : ''
+          }
+        </div>
+      </div>
       <div className="p-3 flex gap-x-3 bg-neutral-50 items-center">
         <button className="flex flex-none w-10 h-10 bg-emerald-300 rounded-full justify-center items-center" onClick={onPlayClick}>
           {play ? <PlayIcon /> : <PauseIcon />}
