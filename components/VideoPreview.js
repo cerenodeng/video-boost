@@ -26,6 +26,12 @@ export default function VideoPreview() {
     setPlay(!play);
   }
 
+  // from seconds to mm:ss
+  function formatTime(time) {
+    const date = new Date(2099, 11, 31, 0, 0, time);
+    return date.toTimeString().slice(3, 8);
+  }
+
   return (
     <div className="flex flex-col gap-y-3 absolute right-0 top-0 w-[390px] h-fit">
       <video ref={video} src="/demo-video.mp4" controls></video>
@@ -33,7 +39,7 @@ export default function VideoPreview() {
         <button className="flex flex-none w-10 h-10 bg-emerald-300 rounded-full justify-center items-center" onClick={onPlayClick}>
           {play ? <PlayIcon /> : <PauseIcon />}
         </button>
-        <ProgressBar progress={progress} text={`${video.current?.currentTime} / ${video.current?.duration}`} />
+        <ProgressBar progress={progress} text={(video.current?.currentTime && video.current?.duration) ? formatTime(video.current.currentTime) + '/' + formatTime(video.current.duration) : ''} />
       </div>
     </div>
   );
