@@ -41,7 +41,13 @@ export default function VideoPreview() {
   }
 
   return (
-    <div className="flex flex-col gap-y-3 absolute right-0 top-0 w-[390px] h-fit">
+    <div className="flex flex-col gap-y-3 absolute right-10 bottom-10 w-[390px] h-fit">
+      <div className="p-3 flex gap-x-3 bg-neutral-50 items-center">
+        <button className="flex flex-none w-10 h-10 bg-emerald-300 rounded-full justify-center items-center" onClick={onPlayClick}>
+          {play ? <PlayIcon /> : <PauseIcon />}
+        </button>
+        <ProgressBar progress={progress} text={(video.current?.currentTime && video.current?.duration) ? formatTime(video.current.currentTime) + '/' + formatTime(video.current.duration) : ''} />
+      </div>
       <div className="relative">
         <video ref={video} src={currentVideo} controls></video>
         <div className="absolute inset-0 flex flex-col items-center justify-evenly">
@@ -54,12 +60,6 @@ export default function VideoPreview() {
             : ''
           }
         </div>
-      </div>
-      <div className="p-3 flex gap-x-3 bg-neutral-50 items-center">
-        <button className="flex flex-none w-10 h-10 bg-emerald-300 rounded-full justify-center items-center" onClick={onPlayClick}>
-          {play ? <PlayIcon /> : <PauseIcon />}
-        </button>
-        <ProgressBar progress={progress} text={(video.current?.currentTime && video.current?.duration) ? formatTime(video.current.currentTime) + '/' + formatTime(video.current.duration) : ''} />
       </div>
     </div>
   );
