@@ -3,7 +3,7 @@ import Preview from '@/components/Preview';
 
 export default function AddVideo() {
   return (
-    <div className="flex">
+    <div className='flex'>
       <Builder />
       <Preview />
     </div>

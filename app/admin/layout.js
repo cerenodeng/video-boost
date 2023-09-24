@@ -7,8 +7,20 @@ export default function AdminLayout({ children }) {
     url: '/admin',
   };
   const menus = [
-    { id: 1, name: 'Videos', url: '/admin/videos', icon: <VideoIcon />, add: true },
-    { id: 2, name: 'Settings', url: '/admin/settings', icon: <SettingIcon />, add: false },
+    {
+      id: 1,
+      name: 'Videos',
+      url: '/admin/videos',
+      icon: <VideoIcon />,
+      add: true,
+    },
+    {
+      id: 2,
+      name: 'Settings',
+      url: '/admin/settings',
+      icon: <SettingIcon />,
+      add: false,
+    },
   ];
   const user = {
     avatar: '/demo-avatar.jpg',
@@ -16,9 +28,9 @@ export default function AdminLayout({ children }) {
   };
 
   return (
-    <div className="flex">
+    <div className='flex'>
       <Sidebar title={title} menus={menus} user={user} />
-      <div className="w-full">{children}</div>
+      <div className='w-full'>{children}</div>
     </div>
   );
 }

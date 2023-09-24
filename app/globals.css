@@ -3,33 +3,33 @@
 @tailwind utilities;
 
 h1 {
-	@apply text-3xl font-bold;
+  @apply text-3xl font-bold;
 }
 
 h2 {
-	@apply text-2xl font-semibold;
+  @apply text-2xl font-semibold;
 }
 
 table {
-	@apply table-fixed divide-neutral-200 border-neutral-200 divide-y border-b;
+  @apply table-fixed divide-y divide-neutral-200 border-b border-neutral-200;
 }
 
 thead tr {
-	@apply divide-neutral-200/50 divide-x;
+  @apply divide-x divide-neutral-200/50;
 }
 
 thead tr th {
-	@apply p-3 bg-neutral-100 text-xl font-semibold text-left;
+  @apply bg-neutral-100 p-3 text-left text-xl font-semibold;
 }
 
 tbody {
-	@apply divide-neutral-100 divide-y;
+  @apply divide-y divide-neutral-100;
 }
 
 tbody tr {
-	@apply divide-neutral-100 divide-x cursor-pointer hover:bg-emerald-50;
+  @apply cursor-pointer divide-x divide-neutral-100 hover:bg-emerald-50;
 }
 
 tbody tr td {
-	@apply p-4 text-lg font-normal;
+  @apply p-4 text-lg font-normal;
 }

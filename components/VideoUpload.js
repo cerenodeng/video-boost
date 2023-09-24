@@ -17,8 +17,8 @@ export default function VideoUpload() {
           body: file,
           headers: {
             'content-type': file.type,
-            'content-length': `${file.size}`
-          }
+            'content-length': `${file.size}`,
+          },
         });
         const result = await response.json();
         console.log(result);
@@ -50,7 +50,7 @@ export default function VideoUpload() {
       setError('Only .mp4 file can be uploaded');
       return;
     }
-    if ((targetFile.size / 1000000) >= 20) {
+    if (targetFile.size / 1000000 >= 20) {
       setError('The file size must less than 20 MB');
       return;
     }
@@ -60,23 +60,33 @@ export default function VideoUpload() {
   }
 
   return (
-    <form className="flex flex-col gap-y-2 items-center">
+    <form className='flex flex-col items-center gap-y-2'>
       <ProgressBar progress={50} text={50} />
-      <div className={`${file && error != '' ? '' : 'hidden'} text-red-500`}>{error}</div>
-      <div className={`${file && error == '' ? '' : 'hidden'} text-base font-semibold`}>{`${file?.name}, ${(file?.size / 1000000).toFixed(1)} MB`}</div>
+      <div className={`${file && error != '' ? '' : 'hidden'} text-red-500`}>
+        {error}
+      </div>
+      <div
+        className={`${
+          file && error == '' ? '' : 'hidden'
+        } text-base font-semibold`}
+      >
+        {`${file?.name}, ${(file?.size / 1000000).toFixed(1)} MB`}
+      </div>
       <button
         ref={uploadButton}
-        type="button"
-        className={`${file && error == '' ? 'cursor-wait' : 'cursor-pointer'} flex gap-x-2 px-5 py-2 w-fit bg-white self-center items-center rounded hover:bg-emerald-50`}
+        type='button'
+        className={`${
+          file && error == '' ? 'cursor-wait' : 'cursor-pointer'
+        } flex w-fit items-center gap-x-2 self-center rounded bg-white px-5 py-2 hover:bg-emerald-50`}
         onClick={onAddClick}
       >
         <PlusIcon />
-        <div className="text-lg">Video</div>
+        <div className='text-lg'>Video</div>
       </button>
       <input
         ref={inputFile}
-        type="file"
-        className="hidden"
+        type='file'
+        className='hidden'
         onChange={onFileChange}
       />
     </form>
