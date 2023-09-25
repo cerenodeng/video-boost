@@ -33,3 +33,11 @@ tbody tr {
 tbody tr td {
   @apply p-4 text-lg font-normal;
 }
+
+label {
+  @apply px-4 py-2 text-base font-medium text-neutral-500;
+}
+
+input {
+  @apply border border-x-0 border-t-0 border-emerald-200/50 p-4 text-lg font-normal focus:border-emerald-500 focus:outline-none;
+}
