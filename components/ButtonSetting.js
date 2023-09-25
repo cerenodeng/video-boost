@@ -1,7 +1,10 @@
 'use client';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { PlusIcon } from './Icon';
 import Input from './Input';
+
+const uuid = uuidv4();
 
 export default function ButtonSetting() {
   const [buttons, setButtons] = useState([]);
@@ -10,16 +13,27 @@ export default function ButtonSetting() {
     event.preventDefault();
   }
 
-  function returnValue(value) {}
+  function returnTitle(id, value) {
+    const found = buttons.filter((button) => button.id == id);
+    if (found.length == 0) {
+      setButtons([...buttons, { id: id, title: value }]);
+    } else {
+      const others = buttons.filter((button) => button.id != id);
+      others.push({ id: id, title: value });
+      setButtons(others);
+    }
+  }
 
   return (
     <form className='flex flex-col items-center gap-y-6'>
+      {JSON.stringify(buttons)}
       <div className='flex flex-col bg-neutral-50 p-6 shadow-sm'>
         <Input
           label='Title'
           name='title'
           placeholder='Title'
-          returnValue={returnValue}
+          uuid={uuid}
+          returnValue={returnTitle}
         />
       </div>
       <button
