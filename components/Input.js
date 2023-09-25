@@ -5,14 +5,12 @@ export default function Input({
   label,
   name,
   placeholder,
+  uuid,
   occupy,
   returnValue,
 }) {
   const [empty, setEmpty] = useState(true);
   const [value, setValue] = useState('');
-  useEffect(() => {
-    returnValue(value);
-  }, [returnValue, value]);
 
   function displayClass() {
     if (typeof occupy == 'undefined') {
@@ -34,6 +32,7 @@ export default function Input({
         onChange={(event) => {
           event.target.value == '' ? setEmpty(true) : setEmpty(false);
           setValue(event.target.value);
+          returnValue(uuid, event.target.value);
         }}
       />
     </div>
