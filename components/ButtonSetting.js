@@ -1,10 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { PlusIcon } from './Icon';
 import Input from './Input';
-
-const uuid = uuidv4();
 
 export default function ButtonSetting() {
   const [buttons, setButtons] = useState([]);
@@ -13,6 +10,7 @@ export default function ButtonSetting() {
     event.preventDefault();
   }
 
+  // store every button's setting
   function returnTitle(id, value) {
     const found = buttons.filter((button) => button.id == id);
     if (found.length == 0) {
@@ -32,7 +30,6 @@ export default function ButtonSetting() {
           label='Title'
           name='title'
           placeholder='Title'
-          uuid={uuid}
           returnValue={returnTitle}
         />
       </div>

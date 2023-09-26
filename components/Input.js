@@ -1,11 +1,13 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+const uuid = uuidv4();
 
 export default function Input({
   label,
   name,
   placeholder,
-  uuid,
   occupy,
   returnValue,
 }) {
