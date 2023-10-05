@@ -41,3 +41,19 @@ label {
 input {
   @apply border border-x-0 border-t-0 border-emerald-200/50 p-4 text-lg font-normal focus:border-emerald-500 focus:outline-none;
 }
+
+select {
+  @apply border border-white border-b-neutral-500 p-4 text-lg font-normal text-neutral-300 focus:border-b-emerald-500 focus:outline-none;
+}
+
+select:has(option:not(:first-child):checked) {
+  @apply text-neutral-500;
+}
+
+select option {
+  @apply text-neutral-500;
+}
+
+select option:first-child {
+  @apply text-neutral-200;
+}

@@ -3,6 +3,7 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { PlusIcon } from './Icon';
 import Input from './Input';
+import Select from './Select';
 
 export default function ButtonSetting() {
   const [settings, setSettings] = useState(new Map());
@@ -14,6 +15,11 @@ export default function ButtonSetting() {
 
   function SettingCard() {
     const uuid = useRef(uuidv4());
+    const selectOptions = [
+      { id: 1, value: 'full', label: 'Full' },
+      { id: 2, value: 'fit', label: 'Fit' },
+      { id: 3, value: 'compact', label: 'Compact' },
+    ];
 
     return (
       <div className='flex flex-col gap-y-2 bg-neutral-50 p-6 shadow-sm'>
@@ -25,10 +31,27 @@ export default function ButtonSetting() {
           returnValue={returnValue}
         />
         <Input
+          label='Title Color'
+          name='titleColor'
+          placeholder='Title text color'
+          uuid={uuid.current}
+          returnValue={returnValue}
+          occupy
+        />
+        <Input
           label='Background Color'
           name='bgColor'
           placeholder='Button background color'
           uuid={uuid.current}
+          returnValue={returnValue}
+          occupy
+        />
+        <Select
+          label='Width'
+          name='width'
+          placeholder='Button Width'
+          uuid={uuid.current}
+          options={selectOptions}
           returnValue={returnValue}
           occupy
         />
