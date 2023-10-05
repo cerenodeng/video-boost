@@ -33,7 +33,7 @@ export default function Input({
         onChange={(event) => {
           event.target.value == '' ? setEmpty(true) : setEmpty(false);
           setValue(event.target.value);
-          returnValue(uuid, event.target.value);
+          returnValue(name, uuid, event.target.value);
         }}
       />
     </div>

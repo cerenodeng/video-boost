@@ -22,50 +22,35 @@ export default function ButtonSetting() {
           name='title'
           placeholder='Button title'
           uuid={uuid.current}
-          returnValue={returnTitle}
+          returnValue={returnValue}
         />
         <Input
           label='Background Color'
           name='bgColor'
           placeholder='Button background color'
           uuid={uuid.current}
-          returnValue={returnBgColor}
+          returnValue={returnValue}
           occupy
         />
       </div>
     );
   }
 
-  // store every button's title
-  function returnTitle(id, value) {
+  // store button's settings
+  function returnValue(type, id, value) {
     setSettings((settings) => {
       const found = settings.get(id);
       if (typeof found === 'undefined') {
-        return settings.set(id, { title: value });
+        const data = {};
+        data[type] = value;
+        return settings.set(id, data);
       } else {
         const newSettings = new Map();
         [...settings.keys()].map((key) => {
           if (key == id) {
-            newSettings.set(key, { ...found, title: value });
-          } else {
-            newSettings.set(key, settings.get(key));
-          }
-        });
-        return newSettings;
-      }
-    });
-  }
-
-  function returnBgColor(id, value) {
-    setSettings((settings) => {
-      const found = settings.get(id);
-      if (typeof found === 'undefined') {
-        return settings.set(id, { bgColor: value });
-      } else {
-        const newSettings = new Map();
-        [...settings.keys()].map((key) => {
-          if (key == id) {
-            newSettings.set(key, { ...found, bgColor: value });
+            const data = { ...found };
+            data[type] = value;
+            newSettings.set(key, data);
           } else {
             newSettings.set(key, settings.get(key));
           }
