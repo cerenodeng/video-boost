@@ -5,13 +5,17 @@ import { PlusIcon } from './Icon';
 import Input from './Input';
 import Select from './Select';
 
-export default function ButtonSetting() {
+export default function ButtonSetting({ returnSettings, returnSettingCards }) {
   const [settings, setSettings] = useState(new Map());
   const [settingCards, setSettingCards] = useState([]);
   const [data, setData] = useState('');
   useEffect(() => {
     setData(JSON.stringify(Object.fromEntries(settings)));
-  }, [settings]);
+    returnSettings(settings);
+  }, [settings, returnSettings]);
+  useEffect(() => {
+    returnSettingCards(settingCards);
+  }, [settingCards, returnSettingCards]);
 
   function SettingCard() {
     const uuid = useRef(uuidv4());
@@ -59,7 +63,7 @@ export default function ButtonSetting() {
     );
   }
 
-  // store button's settings
+  // store button's settings from input or select
   function returnValue(type, id, value) {
     setSettings((settings) => {
       const found = settings.get(id);
