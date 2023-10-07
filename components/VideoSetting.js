@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { PlusIcon } from './Icon';
 import ProgressBar from './ProgressBar';
 
-export default function VideoUpload() {
+export default function VideoSetting() {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
   const uploadButton = useRef(null);
