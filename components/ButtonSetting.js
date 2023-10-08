@@ -5,7 +5,7 @@ import { PlusIcon } from './Icon';
 import Input from './Input';
 import Select from './Select';
 
-export default function ButtonSetting({ returnSettings, returnSettingCards }) {
+export default function ButtonSetting({ returnSettings }) {
   const [settings, setSettings] = useState(new Map());
   const [settingCards, setSettingCards] = useState([]);
   const [data, setData] = useState('');
@@ -13,9 +13,6 @@ export default function ButtonSetting({ returnSettings, returnSettingCards }) {
     setData(JSON.stringify(Object.fromEntries(settings)));
     returnSettings(settings);
   }, [settings, returnSettings]);
-  useEffect(() => {
-    returnSettingCards(settingCards);
-  }, [settingCards, returnSettingCards]);
 
   function SettingCard() {
     const uuid = useRef(uuidv4());
@@ -111,7 +108,7 @@ export default function ButtonSetting({ returnSettings, returnSettingCards }) {
 
   return (
     <form className='flex flex-col items-center gap-y-6'>
-      <div className='w-full'>{data}</div>
+      {/* <div className='w-full'>{data}</div> */}
       {settingCards.map((settingCard) => (
         <Fragment key={settingCard.id}>{settingCard.content}</Fragment>
       ))}

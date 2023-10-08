@@ -1,9 +1,9 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { PlayIcon, PauseIcon } from './Icon';
 import ProgressBar from './ProgressBar';
 
-export default function VideoPreview() {
+export default function VideoPreview({ settings }) {
   const video = useRef(null);
   useEffect(() => {
     video.current.controls = false;
@@ -19,6 +19,7 @@ export default function VideoPreview() {
   const [play, setPlay] = useState(true);
   const [progress, setProgress] = useState(0);
   const [currentVideo, setCurentVideo] = useState('/demo-video-1.mp4');
+  const buttons = Object.fromEntries(settings);
 
   function onPlayClick(event) {
     if (video.current.paused || video.current.ended) {
@@ -65,7 +66,20 @@ export default function VideoPreview() {
       <div className='relative'>
         <video ref={video} src={currentVideo} controls></video>
         <div className='absolute inset-0 flex flex-col items-center justify-evenly'>
-          {video.current?.currentTime > 3 && video.current?.currentTime < 7 ? (
+          {Object.keys(buttons).map((key) => (
+            <button
+              className='w-48 bg-neutral-50 p-4 opacity-90 hover:bg-emerald-100'
+              data-title-color={buttons[key]?.titleColor}
+              data-bg-color={buttons[key]?.bgColor}
+              data-width={buttons[key]?.width}
+              data-video={`/${buttons[key]?.nextVideo}`}
+              key={key}
+              onClick={onActionClick}
+            >
+              {buttons[key]?.title}
+            </button>
+          ))}
+          {/* {video.current?.currentTime > 3 && video.current?.currentTime < 7 ? (
             <>
               <button
                 className='w-48 bg-neutral-50 p-4 opacity-90 hover:bg-emerald-100'
@@ -91,7 +105,7 @@ export default function VideoPreview() {
             </>
           ) : (
             ''
-          )}
+          )} */}
         </div>
       </div>
     </div>
