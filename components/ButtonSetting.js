@@ -19,10 +19,15 @@ export default function ButtonSetting({ returnSettings, returnSettingCards }) {
 
   function SettingCard() {
     const uuid = useRef(uuidv4());
-    const selectOptions = [
+    const widthOptions = [
       { id: 1, value: 'full', label: 'Full' },
       { id: 2, value: 'fit', label: 'Fit' },
       { id: 3, value: 'compact', label: 'Compact' },
+    ];
+    const nextVideoOptions = [
+      { id: 1, value: 'demo-video-1.mp4', label: 'Demo 1' },
+      { id: 2, value: 'demo-video-2.mp4', label: 'Demo 2' },
+      { id: 3, value: 'demo-video-3.mp4', label: 'Demo 3' },
     ];
 
     return (
@@ -55,7 +60,16 @@ export default function ButtonSetting({ returnSettings, returnSettingCards }) {
           name='width'
           placeholder='Button Width'
           uuid={uuid.current}
-          options={selectOptions}
+          options={widthOptions}
+          returnValue={returnValue}
+          occupy
+        />
+        <Select
+          label='Next Video'
+          name='nextVideo'
+          placeholder='Next Video'
+          uuid={uuid.current}
+          options={nextVideoOptions}
           returnValue={returnValue}
           occupy
         />
@@ -97,7 +111,7 @@ export default function ButtonSetting({ returnSettings, returnSettingCards }) {
 
   return (
     <form className='flex flex-col items-center gap-y-6'>
-      {data}
+      <div className='w-full'>{data}</div>
       {settingCards.map((settingCard) => (
         <Fragment key={settingCard.id}>{settingCard.content}</Fragment>
       ))}
