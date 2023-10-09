@@ -4,6 +4,7 @@ import { useState } from 'react';
 export default function Input({
   label,
   name,
+  type,
   placeholder,
   uuid,
   occupy,
@@ -28,6 +29,7 @@ export default function Input({
       <input
         name={name}
         placeholder={placeholder}
+        type={type ?? 'text'}
         uuid={uuid}
         value={value}
         onChange={(event) => {
