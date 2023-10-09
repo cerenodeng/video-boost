@@ -5,13 +5,14 @@ export default function Input({
   label,
   name,
   type,
+  defaultValue,
   placeholder,
   uuid,
   occupy,
   returnValue,
 }) {
   const [empty, setEmpty] = useState(true);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(defaultValue ?? '');
 
   function displayClass() {
     if (typeof occupy == 'undefined') {
