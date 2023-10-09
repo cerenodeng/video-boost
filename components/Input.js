@@ -11,7 +11,7 @@ export default function Input({
   occupy,
   returnValue,
 }) {
-  const [empty, setEmpty] = useState(true);
+  const [empty, setEmpty] = useState(!(defaultValue ?? false) ? true : false);
   const [value, setValue] = useState(defaultValue ?? '');
 
   function displayClass() {
