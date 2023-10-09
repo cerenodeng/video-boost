@@ -69,10 +69,12 @@ export default function VideoPreview({ settings }) {
           {Object.keys(buttons).map((key) => (
             <button
               className='w-48 bg-neutral-50 p-4 opacity-90 hover:bg-emerald-100'
-              data-title-color={buttons[key]?.titleColor}
-              data-bg-color={buttons[key]?.bgColor}
               data-width={buttons[key]?.width}
               data-video={`/${buttons[key]?.nextVideo}`}
+              style={{
+                color: buttons[key]?.titleColor,
+                backgroundColor: buttons[key]?.bgColor,
+              }}
               key={key}
               onClick={onActionClick}
             >

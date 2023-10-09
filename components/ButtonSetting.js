@@ -28,7 +28,7 @@ export default function ButtonSetting({ returnSettings }) {
     ];
 
     return (
-      <div className='flex flex-col gap-y-2 bg-neutral-50 p-6 shadow-sm'>
+      <div className='flex flex-col gap-y-3 bg-neutral-50 p-6 shadow-sm'>
         <Input
           label='Title'
           name='title'
@@ -39,6 +39,8 @@ export default function ButtonSetting({ returnSettings }) {
         <Input
           label='Title Color'
           name='titleColor'
+          type='color'
+          defaultValue='#000000'
           placeholder='Title text color'
           uuid={uuid.current}
           returnValue={returnValue}
@@ -47,6 +49,8 @@ export default function ButtonSetting({ returnSettings }) {
         <Input
           label='Background Color'
           name='bgColor'
+          type='color'
+          defaultValue='#ffffff'
           placeholder='Button background color'
           uuid={uuid.current}
           returnValue={returnValue}
