@@ -35,23 +35,27 @@ tbody tr td {
 }
 
 label {
-  @apply px-4 py-2 text-base font-medium text-neutral-500;
+  @apply px-2 py-0 text-base font-medium text-neutral-500;
 }
 
 input {
-  @apply border border-x-0 border-t-0 border-b-neutral-300 p-4 text-lg font-normal placeholder:text-neutral-300 focus:border-emerald-500 focus:outline-none;
+  @apply border border-x-0 border-t-0 border-b-neutral-300 p-2 text-lg font-normal placeholder:text-neutral-300 focus:border-emerald-500 focus:outline-none;
+}
+
+input[type='color'] {
+  @apply h-10 w-full border border-x-0 border-t-0 border-b-neutral-300 px-0.5 py-px text-lg font-normal outline-0 placeholder:text-neutral-300 focus:border-emerald-500;
 }
 
 select {
-  @apply border border-white border-b-neutral-300 p-4 text-lg font-normal text-neutral-300 focus:border-b-emerald-500 focus:outline-none;
+  @apply border border-white border-b-neutral-300 px-1 py-2 text-lg font-normal text-neutral-300 focus:border-b-emerald-500 focus:outline-none;
 }
 
 select:has(option:not(:first-child):checked) {
-  @apply text-neutral-500;
+  @apply text-black;
 }
 
 select option {
-  @apply text-neutral-500;
+  @apply text-black;
 }
 
 select option:first-child {
