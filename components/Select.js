@@ -1,17 +1,22 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Select({
   label,
   name,
+  defaultValue,
   placeholder,
   uuid,
   options,
   occupy,
   returnValue,
 }) {
-  const [empty, setEmpty] = useState(true);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(defaultValue ?? '');
+  useEffect(() => {
+    if (defaultValue ?? false ? true : false) {
+      returnValue(name, uuid, defaultValue);
+    }
+  }, [defaultValue, name, uuid, returnValue]);
 
   function displayClass(value) {
     if (typeof occupy == 'undefined') {
@@ -31,13 +36,12 @@ export default function Select({
         uuid={uuid}
         value={value}
         onChange={(event) => {
-          // event.target.value == '' ? setEmpty(true) : setEmpty(false);
           setValue(event.target.value);
           returnValue(name, uuid, event.target.value);
         }}
       >
-        {placeholder && (
-          <option value='' disabled selected>
+        {!defaultValue && placeholder && (
+          <option className='placeholder' value='' disabled>
             {placeholder}
           </option>
         )}

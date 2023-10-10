@@ -50,7 +50,7 @@ select {
   @apply border border-white border-b-neutral-300 px-1 py-2 text-lg font-normal text-neutral-300 focus:border-b-emerald-500 focus:outline-none;
 }
 
-select:has(option:not(:first-child):checked) {
+select:has(option:not(.placeholder):checked) {
   @apply text-black;
 }
 
@@ -58,6 +58,6 @@ select option {
   @apply text-black;
 }
 
-select option:first-child {
+select option.placeholder {
   @apply text-neutral-200;
 }

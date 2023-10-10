@@ -15,10 +15,10 @@ export default function Input({
   const [value, setValue] = useState(defaultValue ?? '');
   useEffect(() => {
     if (defaultValue ?? false ? true : false) {
-      console.log('return');
       returnValue(name, uuid, defaultValue);
     }
   }, [defaultValue, name, uuid, returnValue]);
+
   function displayClass() {
     if (typeof occupy == 'undefined') {
       return empty ? 'hidden' : 'block';

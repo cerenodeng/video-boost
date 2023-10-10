@@ -59,7 +59,7 @@ export default function ButtonSetting({ returnSettings }) {
         <Select
           label='Width'
           name='width'
-          placeholder='Button Width'
+          defaultValue='full'
           uuid={uuid.current}
           options={widthOptions}
           returnValue={returnValue}
@@ -112,7 +112,7 @@ export default function ButtonSetting({ returnSettings }) {
 
   return (
     <form className='flex flex-col items-center gap-y-6'>
-      {/* <div className='w-full'>{data}</div> */}
+      <div className='w-full'>{data}</div>
       {settingCards.map((settingCard) => (
         <Fragment key={settingCard.id}>{settingCard.content}</Fragment>
       ))}
