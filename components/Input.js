@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Input({
   label,
@@ -13,7 +13,12 @@ export default function Input({
 }) {
   const [empty, setEmpty] = useState(!(defaultValue ?? false) ? true : false);
   const [value, setValue] = useState(defaultValue ?? '');
-
+  useEffect(() => {
+    if (defaultValue ?? false ? true : false) {
+      console.log('return');
+      returnValue(name, uuid, defaultValue);
+    }
+  }, [defaultValue, name, uuid, returnValue]);
   function displayClass() {
     if (typeof occupy == 'undefined') {
       return empty ? 'hidden' : 'block';
