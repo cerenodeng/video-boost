@@ -19,7 +19,7 @@ export default function ButtonSetting({ returnSettings }) {
     const widthOptions = [
       { id: 1, value: 'full', label: 'Full' },
       { id: 2, value: 'fit', label: 'Fit' },
-      { id: 3, value: 'compact', label: 'Compact' },
+      { id: 3, value: 'half', label: 'Half' },
     ];
     const nextVideoOptions = [
       { id: 1, value: 'demo-video-1.mp4', label: 'Demo 1' },
@@ -112,7 +112,7 @@ export default function ButtonSetting({ returnSettings }) {
 
   return (
     <form className='flex flex-col items-center gap-y-6'>
-      <div className='w-full'>{data}</div>
+      {/* <div className='w-full'>{data}</div> */}
       {settingCards.map((settingCard) => (
         <Fragment key={settingCard.id}>{settingCard.content}</Fragment>
       ))}

@@ -65,15 +65,23 @@ export default function VideoPreview({ settings }) {
       </div>
       <div className='relative'>
         <video ref={video} src={currentVideo} controls></video>
-        <div className='absolute inset-0 flex flex-col items-center justify-evenly'>
+        <div className='absolute inset-0 flex flex-col items-center justify-evenly p-10'>
           {Object.keys(buttons).map((key) => (
             <button
-              className='w-48 bg-neutral-50 p-4 opacity-90 hover:bg-emerald-100'
+              className='w-full whitespace-normal break-words p-4 opacity-90 hover:bg-emerald-100'
               data-width={buttons[key]?.width}
               data-video={`/${buttons[key]?.nextVideo}`}
               style={{
                 color: buttons[key]?.titleColor,
                 backgroundColor: buttons[key]?.bgColor,
+                width:
+                  buttons[key]?.width == 'full'
+                    ? '100%'
+                    : buttons[key]?.width == 'fit'
+                    ? 'fit-content'
+                    : buttons[key]?.width == 'half'
+                    ? '50%'
+                    : '100%',
               }}
               key={key}
               onClick={onActionClick}
