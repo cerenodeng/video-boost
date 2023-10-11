@@ -19,7 +19,11 @@ thead tr {
 }
 
 thead tr th {
-  @apply bg-neutral-100 p-3 text-left text-xl font-semibold;
+  @apply bg-neutral-100 p-5 text-left text-xl font-semibold;
+}
+
+thead tr th:first-child {
+  @apply pl-10;
 }
 
 tbody {
@@ -31,7 +35,11 @@ tbody tr {
 }
 
 tbody tr td {
-  @apply p-4 text-lg font-normal;
+  @apply px-5 py-3 text-lg font-normal;
+}
+
+tbody tr td:first-child {
+  @apply pl-10;
 }
 
 label {
