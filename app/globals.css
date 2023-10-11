@@ -14,15 +14,18 @@ table {
   @apply table-fixed divide-y divide-neutral-200 border-b border-neutral-200;
 }
 
-thead tr {
+thead tr,
+tfoot tr {
   @apply divide-x divide-neutral-200/50;
 }
 
-thead tr th {
+thead tr th,
+tfoot tr th {
   @apply bg-neutral-100 p-5 text-left text-xl font-semibold;
 }
 
-thead tr th:first-child {
+thead tr th:first-child,
+tfoot tr th:first-child {
   @apply pl-10;
 }
 
@@ -68,4 +71,8 @@ select option {
 
 select option.placeholder {
   @apply text-neutral-200;
+}
+
+.page {
+  @apply flex h-10 w-10 items-center justify-center p-1 text-center hover:bg-emerald-100;
 }

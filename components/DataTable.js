@@ -1,5 +1,8 @@
 'use client';
 
+import Link from 'next/link';
+import { DotsIcon, NextIcon, PreviousIcon } from './Icon';
+
 export default function DataTable({ data }) {
   function onClick(event) {
     event.preventDefault();
@@ -24,6 +27,41 @@ export default function DataTable({ data }) {
           </tr>
         ))}
       </tbody>
+      {data.totalPages > 1 && (
+        <tfoot>
+          <tr>
+            <th colSpan={data.headers.length}>
+              <div className='flex items-center gap-x-5'>
+                <Link href='#' className='page'>
+                  <PreviousIcon />
+                </Link>
+                <Link href='#' className='page'>
+                  1
+                </Link>
+                <Link href='#' className='page'>
+                  2
+                </Link>
+                <Link href='#' className='page'>
+                  3
+                </Link>
+                <DotsIcon />
+                <Link href='#' className='page'>
+                  8
+                </Link>
+                <Link href='#' className='page'>
+                  9
+                </Link>
+                <Link href='#' className='page'>
+                  10
+                </Link>
+                <Link href='#' className='page'>
+                  <NextIcon />
+                </Link>
+              </div>
+            </th>
+          </tr>
+        </tfoot>
+      )}
     </table>
   );
 }
