@@ -43,6 +43,57 @@ export function AddIcon() {
   );
 }
 
+export function PreviousIcon() {
+  return (
+    <svg
+      className='h-5 w-5'
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 6 10'
+    >
+      <path
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='M5 1 1 5l4 4'
+      />
+    </svg>
+  );
+}
+
+export function DotsIcon() {
+  return (
+    <svg
+      className='h-5 w-5 text-base font-normal text-neutral-500'
+      xmlns='http://www.w3.org/2000/svg'
+      fill='currentColor'
+      viewBox='0 0 16 3'
+    >
+      <path d='M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z' />
+    </svg>
+  );
+}
+
+export function NextIcon() {
+  return (
+    <svg
+      className='h-5 w-5'
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 6 10'
+    >
+      <path
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+        d='m1 9 4-4-4-4'
+      />
+    </svg>
+  );
+}
+
 export function PlusIcon() {
   return (
     <svg
