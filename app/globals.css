@@ -76,3 +76,7 @@ select option.placeholder {
 .page {
   @apply flex h-10 w-10 items-center justify-center p-1 text-center hover:bg-emerald-100;
 }
+
+.current.page {
+  @apply cursor-default bg-emerald-300 text-white;
+}

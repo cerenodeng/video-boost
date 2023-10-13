@@ -40,7 +40,9 @@ export default function DataTable({ data }) {
                 {[...Array(maxPage < 3 ? maxPage : 3).keys()].map((index) => (
                   <Link
                     href={`/admin/videos/page/${index + 1}`}
-                    className='page'
+                    className={`${
+                      data.currentPage == index + 1 ? 'current' : ''
+                    } page`}
                     key={index}
                   >
                     {index + 1}
