@@ -1,7 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { DotsIcon, NextIcon, PreviousIcon } from './Icon';
+import {
+  DotsIcon,
+  FastNextIcon,
+  FastPreviousIcon,
+  NextIcon,
+  PreviousIcon,
+} from './Icon';
 
 export default function DataTable({ data }) {
   const maxPage = data.totalPages < 10 ? data.totalPages : 10;
@@ -34,6 +40,11 @@ export default function DataTable({ data }) {
           <tr>
             <th colSpan={data.headers.length}>
               <div className='flex items-center gap-x-5'>
+                {data.totalPages > 10 && (
+                  <Link href='#' className='page'>
+                    <FastPreviousIcon />
+                  </Link>
+                )}
                 <Link href='#' className='page'>
                   <PreviousIcon />
                 </Link>
@@ -65,6 +76,11 @@ export default function DataTable({ data }) {
                 <Link href='#' className='page'>
                   <NextIcon />
                 </Link>
+                {data.totalPages > 10 && (
+                  <Link href='#' className='page'>
+                    <FastNextIcon />
+                  </Link>
+                )}
               </div>
             </th>
           </tr>
