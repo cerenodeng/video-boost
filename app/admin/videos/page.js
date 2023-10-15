@@ -2,7 +2,7 @@ import DataTable from '@/components/DataTable';
 
 export default function Videos() {
   const videos = [];
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 52; i++) {
     videos.push(
       [
         '/admin/videos/0',
@@ -27,7 +27,7 @@ export default function Videos() {
 
   const totalItems = videos.length;
   const itemsPerPage = 15;
-  const currentPage = 1;
+  const currentPage = 11;
   const items = videos.slice(
     itemsPerPage * (currentPage - 1),
     itemsPerPage * currentPage,
