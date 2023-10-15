@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   DotsIcon,
@@ -11,6 +12,7 @@ import {
 
 export default function DataTable({ data }) {
   const maxPage = data.totalPages < 10 ? data.totalPages : 10;
+  const [currentPage, setCurrentPage] = useState(data.currentPage);
 
   function onClick(event) {
     event.preventDefault();
@@ -40,6 +42,10 @@ export default function DataTable({ data }) {
           <tr>
             <th colSpan={data.headers.length}>
               <div className='flex items-center gap-x-5'>
+                <div>
+                  Total {data.totalItems}{' '}
+                  {data.totalItems > 1 ? data.names[1] : data.names[0]}
+                </div>
                 {data.totalPages > 10 && (
                   <Link href='#' className='page'>
                     <FastPreviousIcon />
@@ -81,6 +87,16 @@ export default function DataTable({ data }) {
                     <FastNextIcon />
                   </Link>
                 )}
+                <div className='flex items-center gap-x-2'>
+                  <div>Page</div>
+                  <input
+                    name='currentPage'
+                    className='w-20'
+                    value={currentPage}
+                    onChange={(event) => setCurrentPage(event.target.value)}
+                  />
+                  <div>of {data.totalPages}</div>
+                </div>
               </div>
             </th>
           </tr>

@@ -25,23 +25,26 @@ export default function Videos() {
     );
   }
 
-  const currentPage = 1;
+  const totalItems = videos.length;
   const itemsPerPage = 15;
-  const totalPages = Math.ceil(videos.length / itemsPerPage);
+  const currentPage = 1;
   const items = videos.slice(
     itemsPerPage * (currentPage - 1),
     itemsPerPage * currentPage,
   );
+  const totalPages = Math.ceil(videos.length / itemsPerPage);
 
   return (
     <div className='flex flex-col gap-y-10'>
       <DataTable
         data={{
           headers: ['Title', 'URL', 'Views'],
+          totalItems: totalItems,
           items: items,
           itemsPerPage: itemsPerPage,
           totalPages: totalPages,
           currentPage: currentPage,
+          names: ['video', 'videos'],
         }}
       />
     </div>
