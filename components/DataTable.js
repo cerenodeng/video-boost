@@ -11,8 +11,15 @@ import {
 } from './Icon';
 
 export default function DataTable({ data }) {
-  const maxPage = data.totalPages < 10 ? data.totalPages : 10;
+  const startPage = Math.floor((data.currentPage - 1) / 10) * 10 + 1;
+  const maxPage =
+    startPage + 9 >= data.totalPages ? data.totalPages - startPage + 1 : 10;
   const [currentPage, setCurrentPage] = useState(data.currentPage);
+
+  function getUnitDigit(number) {
+    const result = Number(number.toString().at(-1));
+    return result == 0 ? 10 : result;
+  }
 
   function onClick(event) {
     event.preventDefault();
@@ -54,28 +61,64 @@ export default function DataTable({ data }) {
                 <Link href='#' className='page'>
                   <PreviousIcon />
                 </Link>
-                {[...Array(maxPage < 3 ? maxPage : 3).keys()].map((index) => (
-                  <Link
-                    href={`/admin/videos/page/${index + 1}`}
-                    className={`${
-                      data.currentPage == index + 1 ? 'current' : ''
-                    } page`}
-                    key={index}
-                  >
-                    {index + 1}
-                  </Link>
-                ))}
-                {maxPage > 3 && <DotsIcon />}
+                {(getUnitDigit(currentPage) < 4 ||
+                  getUnitDigit(currentPage) > 7) &&
+                  [...Array(maxPage < 3 ? maxPage : 3).keys()].map((index) => (
+                    <Link
+                      href={`/admin/videos/page/${startPage + index}`}
+                      className={`${
+                        getUnitDigit(currentPage) == index + 1 ? 'current' : ''
+                      } page`}
+                      key={index}
+                    >
+                      {startPage + index}
+                    </Link>
+                  ))}
+                {maxPage > 3 &&
+                  (getUnitDigit(currentPage) < 4 ||
+                    getUnitDigit(currentPage) > 7) && <DotsIcon />}
+                {maxPage > 3 &&
+                  getUnitDigit(currentPage) > 3 &&
+                  getUnitDigit(currentPage) < 8 && <DotsIcon />}
+                {maxPage > 3 &&
+                  getUnitDigit(currentPage) > 3 &&
+                  getUnitDigit(currentPage) < 8 &&
+                  [...Array(maxPage).keys()].map(
+                    (index) =>
+                      index > 2 &&
+                      index < 7 && (
+                        <Link
+                          href={`/admin/videos/page/${startPage + index}`}
+                          className={`${
+                            getUnitDigit(currentPage) == index + 1
+                              ? 'current'
+                              : ''
+                          } page`}
+                          key={index}
+                        >
+                          {startPage + index}
+                        </Link>
+                      ),
+                  )}
+                {maxPage > 3 &&
+                  getUnitDigit(currentPage) > 3 &&
+                  getUnitDigit(currentPage) < 8 && <DotsIcon />}
                 {maxPage > 7 &&
+                  (getUnitDigit(currentPage) < 4 ||
+                    getUnitDigit(currentPage) > 7) &&
                   [...Array(maxPage).keys()].map(
                     (index) =>
                       index > 6 && (
                         <Link
-                          href={`/admin/videos/page/${index + 1}`}
-                          className='page'
+                          href={`/admin/videos/page/${startPage + index}`}
+                          className={`${
+                            getUnitDigit(currentPage) == index + 1
+                              ? 'current'
+                              : ''
+                          } page`}
                           key={index}
                         >
-                          {index + 1}
+                          {startPage + index}
                         </Link>
                       ),
                   )}
