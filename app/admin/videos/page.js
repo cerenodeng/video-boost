@@ -1,9 +1,9 @@
 import DataTable from '@/components/DataTable';
 
 export default function Videos() {
-  const tempCurrnetPage = 25;
+  const tempCurrnetPage = 23;
   const videos = [];
-  for (let i = 0; i < 95; i++) {
+  for (let i = 0; i < 195; i++) {
     videos.push(
       [
         '/admin/videos/0',
@@ -27,7 +27,7 @@ export default function Videos() {
   }
 
   const totalItems = videos.length;
-  const itemsPerPage = 15;
+  const itemsPerPage = 25;
   const totalPages = Math.ceil(videos.length / itemsPerPage);
   const currentPage =
     tempCurrnetPage < 0
@@ -41,18 +41,16 @@ export default function Videos() {
   );
 
   return (
-    <div className='flex flex-col gap-y-10'>
-      <DataTable
-        data={{
-          headers: ['Title', 'URL', 'Views'],
-          totalItems: totalItems,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          totalPages: totalPages,
-          currentPage: currentPage,
-          names: ['video', 'videos'],
-        }}
-      />
-    </div>
+    <DataTable
+      data={{
+        headers: ['Title', 'URL', 'Views'],
+        totalItems: totalItems,
+        items: items,
+        itemsPerPage: itemsPerPage,
+        totalPages: totalPages,
+        currentPage: currentPage,
+        names: ['video', 'videos'],
+      }}
+    />
   );
 }

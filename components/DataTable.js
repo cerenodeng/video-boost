@@ -27,8 +27,8 @@ export default function DataTable({ data }) {
   }
 
   return (
-    <table>
-      <thead>
+    <table className='h-screen w-full'>
+      <thead className='sticky top-0 opacity-95'>
         <tr>
           {data.headers.map((header, index) => (
             <th key={index}>{header}</th>
@@ -45,7 +45,7 @@ export default function DataTable({ data }) {
         ))}
       </tbody>
       {data.totalPages > 1 && (
-        <tfoot>
+        <tfoot className='sticky bottom-0 opacity-95'>
           <tr>
             <th colSpan={data.headers.length}>
               <div className='flex items-center gap-x-5'>
