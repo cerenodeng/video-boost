@@ -53,7 +53,7 @@ export default function DataTable({ data }) {
                   Total {data.totalItems}{' '}
                   {data.totalItems > 1 ? data.names[1] : data.names[0]}
                 </div>
-                {data.totalPages > 10 && (
+                {data.totalPages > 10 && startPage != 1 && (
                   <Link href='#' className='page'>
                     <FastPreviousIcon />
                   </Link>
@@ -125,7 +125,7 @@ export default function DataTable({ data }) {
                 <Link href='#' className='page'>
                   <NextIcon />
                 </Link>
-                {data.totalPages > 10 && (
+                {data.totalPages > 10 && data.totalPages - startPage > 9 && (
                   <Link href='#' className='page'>
                     <FastNextIcon />
                   </Link>
