@@ -43,6 +43,14 @@ export default function DataTable({ data }) {
             ))}
           </tr>
         ))}
+        {currentPage == data.totalPages &&
+          [...Array(data.itemsPerPage - data.items.length).keys()].map(
+            (index) => (
+              <tr className='no-border' key={index}>
+                <td colSpan={data.headers.length}></td>
+              </tr>
+            ),
+          )}
       </tbody>
       {data.totalPages > 1 && (
         <tfoot className='sticky bottom-0 opacity-95'>

@@ -11,7 +11,7 @@ h2 {
 }
 
 table {
-  @apply table-fixed divide-y divide-neutral-200 border-b border-neutral-200;
+  @apply divide-y divide-neutral-200 border-b border-neutral-200;
 }
 
 thead tr,
@@ -35,6 +35,14 @@ tbody {
 
 tbody tr {
   @apply cursor-pointer divide-x divide-neutral-100 hover:bg-emerald-50;
+}
+
+tbody > tr.no-border ~ tr.no-border {
+  @apply border-t-white;
+}
+
+tbody tr.no-border {
+  @apply cursor-default hover:bg-white;
 }
 
 tbody tr td {
