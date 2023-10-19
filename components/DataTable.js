@@ -58,9 +58,11 @@ export default function DataTable({ data }) {
                     <FastPreviousIcon />
                   </Link>
                 )}
-                <Link href='#' className='page'>
-                  <PreviousIcon />
-                </Link>
+                {currentPage != 1 && (
+                  <Link href='#' className='page'>
+                    <PreviousIcon />
+                  </Link>
+                )}
                 {(getUnitDigit(currentPage) < 4 ||
                   getUnitDigit(currentPage) > 7) &&
                   [...Array(maxPage < 3 ? maxPage : 3).keys()].map((index) => (
@@ -123,9 +125,11 @@ export default function DataTable({ data }) {
                         </Link>
                       ),
                   )}
-                <Link href='#' className='page'>
-                  <NextIcon />
-                </Link>
+                {currentPage != data.totalPages && (
+                  <Link href='#' className='page'>
+                    <NextIcon />
+                  </Link>
+                )}
                 {data.totalPages > 10 && data.totalPages - startPage > 9 && (
                   <Link href='#' className='page'>
                     <FastNextIcon />
