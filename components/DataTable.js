@@ -102,7 +102,8 @@ export default function DataTable({ data }) {
                   )}
                 {maxPage > 3 &&
                   getUnitDigit(currentPage) > 3 &&
-                  getUnitDigit(currentPage) < 8 && <DotsIcon />}
+                  getUnitDigit(currentPage) < 8 &&
+                  currentPage != data.totalPages && <DotsIcon />}
                 {maxPage > 7 &&
                   (getUnitDigit(currentPage) < 4 ||
                     getUnitDigit(currentPage) > 7) &&
