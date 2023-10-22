@@ -32,12 +32,10 @@ export async function GET(request, { params }) {
   const itemsPerPage = 25;
   const totalPages = Math.ceil(videos.length / itemsPerPage);
   const currentPage = page < 0 ? 1 : page > totalPages ? totalPages : page;
-  const partVideos = videos.slice(
+  const items = videos.slice(
     itemsPerPage * (currentPage - 1),
     itemsPerPage * currentPage,
   );
-
-  const items = JSON.stringify(partVideos);
   return Response.json({
     totalItems,
     itemsPerPage,

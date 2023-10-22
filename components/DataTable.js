@@ -3,6 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import {
   DotsIcon,
   FastNextIcon,
   FastPreviousIcon,
@@ -10,11 +16,32 @@ import {
   PreviousIcon,
 } from './Icon';
 
-export default function DataTable({ data }) {
+const queryClient = new QueryClient();
+
+function Table({ headers, names }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const queryClient = useQueryClient();
+  queryClient.setQueryDefaults(['items'], { queryFn: getItems });
+  const { isPending, isError, data, error } = useQuery({ queryKey: ['items'] });
+
+  async function getItems() {
+    const response = await fetch(`/admin/api/videos/${currentPage}`);
+    if (!response.ok) {
+      throw new Error('error to get videos api');
+    }
+    return response.json();
+  }
+
+  if (isPending) {
+    return <div>Loading ...</div>;
+  }
+  if (isError) {
+    return <div>{`An error has occurred: ${error.message}`}</div>;
+  }
+
   const startPage = Math.floor((data.currentPage - 1) / 10) * 10 + 1;
   const maxPage =
     startPage + 9 >= data.totalPages ? data.totalPages - startPage + 1 : 10;
-  const [currentPage, setCurrentPage] = useState(data.currentPage);
 
   function getUnitDigit(number) {
     const result = Number(number.toString().at(-1));
@@ -30,24 +57,24 @@ export default function DataTable({ data }) {
     <table className='h-screen w-full'>
       <thead className='sticky top-0 opacity-95'>
         <tr>
-          {data.headers.map((header, index) => (
+          {headers.map((header, index) => (
             <th key={index}>{header}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {data.items.map((item, index) => (
-          <tr data-link={item[0]} onClick={onClick} key={index}>
-            {[...Array(item.length - 1).keys()].map((key, index) => (
-              <td key={index}>{item[key + 1]}</td>
+        {data.items.map((item) => (
+          <tr data-link={item[1]} onClick={onClick} key={item[0]}>
+            {[...Array(item.length - 2).keys()].map((key, index) => (
+              <td key={index}>{item[key + 2]}</td>
             ))}
           </tr>
         ))}
         {currentPage == data.totalPages &&
-          [...Array(data.itemsPerPage - data.items.length).keys()].map(
+          [...Array(data.itemsPerPage - data.items.length - 1).keys()].map(
             (index) => (
               <tr className='no-border' key={index}>
-                <td colSpan={data.headers.length}></td>
+                <td colSpan={headers.length}></td>
               </tr>
             ),
           )}
@@ -55,11 +82,11 @@ export default function DataTable({ data }) {
       {data.totalPages > 1 && (
         <tfoot className='sticky bottom-0 opacity-95'>
           <tr>
-            <th colSpan={data.headers.length}>
+            <th colSpan={headers.length}>
               <div className='flex items-center gap-x-5'>
                 <div>
                   Total {data.totalItems}{' '}
-                  {data.totalItems > 1 ? data.names[1] : data.names[0]}
+                  {data.totalItems > 1 ? names[1] : names[0]}
                 </div>
                 {data.totalPages > 10 && startPage != 1 && (
                   <Link href='#' className='page'>
@@ -159,5 +186,13 @@ export default function DataTable({ data }) {
         </tfoot>
       )}
     </table>
+  );
+}
+
+export default function DataTable({ headers, names }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Table headers={headers} names={names} />
+    </QueryClientProvider>
   );
 }
