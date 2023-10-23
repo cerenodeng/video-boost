@@ -9,6 +9,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import {
+  AlertIcon,
   DotsIcon,
   FastNextIcon,
   FastPreviousIcon,
@@ -60,7 +61,30 @@ function Table({ headers, names }) {
     );
   }
   if (isError) {
-    return <div>{`An error has occurred: ${error.message}`}</div>;
+    return (
+      <table className='h-screen w-full'>
+        <thead className='sticky top-0 opacity-95'>
+          <tr>
+            {headers.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              colSpan={headers.length}
+              className='cursor-default hover:bg-white'
+            >
+              <div className='flex w-full items-center justify-center gap-x-3'>
+                <AlertIcon />
+                <div>{error.message}</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    );
   }
 
   const startPage = Math.floor((data.currentPage - 1) / 10) * 10 + 1;
