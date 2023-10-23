@@ -12,6 +12,7 @@ import {
   DotsIcon,
   FastNextIcon,
   FastPreviousIcon,
+  LoadingIcon,
   NextIcon,
   PreviousIcon,
 } from './Icon';
@@ -33,7 +34,30 @@ function Table({ headers, names }) {
   }
 
   if (isPending) {
-    return <div>Loading ...</div>;
+    return (
+      <table className='h-screen w-full'>
+        <thead className='sticky top-0 opacity-95'>
+          <tr>
+            {headers.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              colSpan={headers.length}
+              className='cursor-default hover:bg-white'
+            >
+              <div className='flex w-full items-center justify-center gap-x-3'>
+                <LoadingIcon />
+                <div>Loading ...</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    );
   }
   if (isError) {
     return <div>{`An error has occurred: ${error.message}`}</div>;

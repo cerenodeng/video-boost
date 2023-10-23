@@ -11,7 +11,7 @@ h2 {
 }
 
 table {
-  @apply divide-y divide-neutral-200 border-b border-neutral-200;
+  @apply table-fixed divide-y divide-neutral-200 border-b border-neutral-200;
 }
 
 thead tr,
