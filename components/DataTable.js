@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   QueryClient,
@@ -21,10 +21,18 @@ import {
 const queryClient = new QueryClient();
 
 function Table({ headers, names }) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(24);
+  const [startPage, setStartPage] = useState();
+  const [maxPage, setMaxPage] = useState();
   const queryClient = useQueryClient();
   queryClient.setQueryDefaults(['items'], { queryFn: getItems });
   const { isPending, isError, data, error } = useQuery({ queryKey: ['items'] });
+  useEffect(() => {
+    setStartPage(Math.floor((currentPage - 1) / 10) * 10 + 1);
+    setMaxPage(
+      startPage + 9 >= data?.totalPages ? data?.totalPages - startPage + 1 : 10,
+    );
+  }, [startPage, currentPage, data?.totalPages]);
 
   async function getItems() {
     const response = await fetch(`/admin/api/videos/${currentPage}`);
@@ -60,6 +68,7 @@ function Table({ headers, names }) {
       </table>
     );
   }
+
   if (isError) {
     return (
       <table className='h-screen w-full'>
@@ -87,18 +96,36 @@ function Table({ headers, names }) {
     );
   }
 
-  const startPage = Math.floor((data.currentPage - 1) / 10) * 10 + 1;
-  const maxPage =
-    startPage + 9 >= data.totalPages ? data.totalPages - startPage + 1 : 10;
-
   function getUnitDigit(number) {
     const result = Number(number.toString().at(-1));
     return result == 0 ? 10 : result;
   }
 
-  function onClick(event) {
+  function onRowClick(event) {
     event.preventDefault();
     location = event.currentTarget.dataset.link;
+  }
+
+  function onCurrentPageFocus(event) {
+    event.preventDefault();
+    event.target.value = '';
+    setCurrentPage('');
+  }
+
+  let timeoutId;
+  let pageNumbers = '';
+  function onCurrentPageKeyUp(event) {
+    event.preventDefault();
+    if (event.isComposing || event.keyCode === 229) {
+      return;
+    }
+    if (!isNaN(Number(event.key))) {
+      pageNumbers = pageNumbers + event.key.toString();
+    }
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      setCurrentPage(Number(pageNumbers));
+    }, 700);
   }
 
   return (
@@ -112,7 +139,7 @@ function Table({ headers, names }) {
       </thead>
       <tbody>
         {data.items.map((item) => (
-          <tr data-link={item[1]} onClick={onClick} key={item[0]}>
+          <tr data-link={item[1]} onClick={onRowClick} key={item[0]}>
             {[...Array(item.length - 2).keys()].map((key, index) => (
               <td key={index}>{item[key + 2]}</td>
             ))}
@@ -224,7 +251,9 @@ function Table({ headers, names }) {
                     name='currentPage'
                     className='w-20'
                     value={currentPage}
-                    onChange={(event) => setCurrentPage(event.target.value)}
+                    onFocus={onCurrentPageFocus}
+                    onKeyUp={onCurrentPageKeyUp}
+                    onChange={(event) => event}
                   />
                   <div>of {data.totalPages}</div>
                 </div>
