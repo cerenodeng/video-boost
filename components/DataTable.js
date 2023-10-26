@@ -24,6 +24,7 @@ function Table({ headers, names }) {
   const [currentPage, setCurrentPage] = useState(24);
   const [startPage, setStartPage] = useState();
   const [maxPage, setMaxPage] = useState();
+  const [focus, setFocus] = useState(false);
   const queryClient = useQueryClient();
   queryClient.setQueryDefaults(['items'], { queryFn: getItems });
   const { isPending, isError, data, error } = useQuery({ queryKey: ['items'] });
@@ -109,7 +110,7 @@ function Table({ headers, names }) {
   function onCurrentPageFocus(event) {
     event.preventDefault();
     event.target.value = '';
-    setCurrentPage('');
+    setFocus(true);
   }
 
   let timeoutId;
@@ -124,8 +125,10 @@ function Table({ headers, names }) {
     }
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
+      event.target.blur();
+      setFocus(false);
       setCurrentPage(Number(pageNumbers));
-    }, 700);
+    }, 500);
   }
 
   return (
@@ -250,9 +253,10 @@ function Table({ headers, names }) {
                   <input
                     name='currentPage'
                     className='w-20'
-                    value={currentPage}
+                    value={!focus ? currentPage : ''}
                     onFocus={onCurrentPageFocus}
                     onKeyUp={onCurrentPageKeyUp}
+                    // onKeyDown={(event) => (event.target.value = event.key)}
                     onChange={(event) => event}
                   />
                   <div>of {data.totalPages}</div>
