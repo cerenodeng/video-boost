@@ -1,21 +1,48 @@
 'use client';
 
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AddIcon } from './Icon';
 
 export default function Sidebar({ title, menus, user }) {
+  const [open, setOpen] = useState(true);
   const pathname = usePathname();
 
   return (
-    <aside className='sticky top-0 flex h-screen w-64 flex-col bg-neutral-900 shadow-2xl shadow-neutral-900/50'>
-      <Link
-        href={title.url}
-        className='px-8 py-10 text-lg font-medium text-neutral-500'
-      >
-        {title.name}
-      </Link>
+    <aside
+      className={`${
+        open ? 'w-64' : 'w-fit'
+      } sticky top-0 flex h-screen flex-col bg-neutral-900 shadow-2xl shadow-neutral-900/50`}
+    >
+      <div className='flex items-center gap-x-3 px-8 py-10'>
+        <button className='flex items-center'>
+          <svg
+            className='h-6 w-6 text-neutral-500'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 17 14'
+            onClick={() => setOpen(!open)}
+          >
+            <path
+              stroke='currentColor'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
+              d='M1 1h15M1 7h15M1 13h15'
+            />
+          </svg>
+        </button>
+        {open && (
+          <Link
+            href={title.url}
+            className='text-lg font-medium text-neutral-500'
+          >
+            {title.name}
+          </Link>
+        )}
+      </div>
       <nav className='flex grow flex-col gap-y-px'>
         {menus.map((menu) => (
           <Link
@@ -29,7 +56,7 @@ export default function Sidebar({ title, menus, user }) {
             key={menu.id}
           >
             {menu.icon}
-            <div>{menu.name}</div>
+            {open && <div>{menu.name}</div>}
             {pathname == menu.url && menu.add && (
               <button
                 className='absolute inset-y-0 -right-4 z-10'
@@ -46,14 +73,16 @@ export default function Sidebar({ title, menus, user }) {
           <Image
             src={user.avatar}
             alt={user.name}
-            sizes='1vw'
+            sizes='3vw'
             fill={true}
             className='rounded-full'
           />
         </div>
-        <div className='text-base font-medium text-neutral-100'>
-          {user.name}
-        </div>
+        {open && (
+          <div className='text-base font-medium text-neutral-100'>
+            {user.name}
+          </div>
+        )}
       </div>
     </aside>
   );
