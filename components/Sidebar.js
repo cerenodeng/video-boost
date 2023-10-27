@@ -1,14 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AddIcon } from './Icon';
 
 export default function Sidebar({ title, menus, user }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState();
   const pathname = usePathname();
+  useEffect(() => {
+    const sidebarState = window.localStorage.getItem('sidebarState');
+    console.log('first', sidebarState);
+    if (sidebarState == null || sidebarState == 'open') {
+      setOpen(true);
+    } else if (sidebarState == 'close') {
+      setOpen(false);
+    }
+  }, []);
+  useEffect(() => {
+    if (open) {
+      window.localStorage.setItem('sidebarState', 'open');
+    } else {
+      window.localStorage.setItem('sidebarState', 'close');
+    }
+    const sidebarState = window.localStorage.getItem('sidebarState');
+    console.log(sidebarState);
+  }, [open]);
 
   return (
     <aside
