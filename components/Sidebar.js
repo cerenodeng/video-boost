@@ -11,7 +11,6 @@ export default function Sidebar({ title, menus, user }) {
   const pathname = usePathname();
   useEffect(() => {
     const sidebarState = window.localStorage.getItem('sidebarState');
-    console.log('first', sidebarState);
     if (sidebarState == null || sidebarState == 'open') {
       setOpen(true);
     } else if (sidebarState == 'close') {
@@ -19,13 +18,13 @@ export default function Sidebar({ title, menus, user }) {
     }
   }, []);
   useEffect(() => {
-    if (open) {
+    const openState =
+      open ?? window.localStorage.getItem('sidebarState') == 'open';
+    if (openState) {
       window.localStorage.setItem('sidebarState', 'open');
     } else {
       window.localStorage.setItem('sidebarState', 'close');
     }
-    const sidebarState = window.localStorage.getItem('sidebarState');
-    console.log(sidebarState);
   }, [open]);
 
   return (
