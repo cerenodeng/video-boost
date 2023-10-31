@@ -1,4 +1,4 @@
-import { SettingIcon, VideoIcon } from '@/components/Icon';
+import { SettingIcon, UserIcon, VideoIcon } from '@/components/Icon';
 import Sidebar from '@/components/Sidebar';
 
 export default function AdminLayout({ children }) {
@@ -16,6 +16,13 @@ export default function AdminLayout({ children }) {
     },
     {
       id: 2,
+      name: 'Users',
+      url: '/admin/users',
+      icon: <UserIcon />,
+      add: true,
+    },
+    {
+      id: 3,
       name: 'Settings',
       url: '/admin/settings',
       icon: <SettingIcon />,
