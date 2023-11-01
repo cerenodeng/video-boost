@@ -20,7 +20,7 @@ import {
 
 const queryClient = new QueryClient();
 
-function Table({ headers, names }) {
+function Table({ headers, names, path }) {
   const [currentPage, setCurrentPage] = useState(24);
   const [startPage, setStartPage] = useState();
   const [maxPage, setMaxPage] = useState();
@@ -36,9 +36,9 @@ function Table({ headers, names }) {
   }, [startPage, currentPage, data?.totalPages]);
 
   async function getItems() {
-    const response = await fetch(`/admin/api/videos/${currentPage}`);
+    const response = await fetch(`/admin/api/${path}/${currentPage}`);
     if (!response.ok) {
-      throw new Error('error to get videos api');
+      throw new Error(`error to get ${path} api`);
     }
     return response.json();
   }
@@ -270,10 +270,10 @@ function Table({ headers, names }) {
   );
 }
 
-export default function DataTable({ headers, names }) {
+export default function DataTable({ headers, names, path }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Table headers={headers} names={names} />
+      <Table headers={headers} names={names} path={path} />
     </QueryClientProvider>
   );
 }
