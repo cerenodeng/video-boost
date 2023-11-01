@@ -21,7 +21,7 @@ import {
 const queryClient = new QueryClient();
 
 function Table({ headers, names, path }) {
-  const [currentPage, setCurrentPage] = useState(24);
+  const [currentPage, setCurrentPage] = useState(1);
   const [startPage, setStartPage] = useState();
   const [maxPage, setMaxPage] = useState();
   const [focus, setFocus] = useState(false);
