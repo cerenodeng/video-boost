@@ -157,115 +157,113 @@ function Table({ headers, names, path }) {
             ),
           )}
       </tbody>
-      {data.totalPages > 1 && (
-        <tfoot className='sticky bottom-0 opacity-95'>
-          <tr>
-            <th colSpan={headers.length}>
-              <div className='flex items-center gap-x-5'>
-                <div>
-                  Total {data.totalItems}{' '}
-                  {data.totalItems > 1 ? names[1] : names[0]}
-                </div>
-                {data.totalPages > 10 && startPage != 1 && (
-                  <Link href='#' className='page'>
-                    <FastPreviousIcon />
-                  </Link>
-                )}
-                {currentPage != 1 && (
-                  <Link href='#' className='page'>
-                    <PreviousIcon />
-                  </Link>
-                )}
-                {(getUnitDigit(currentPage) < 4 ||
-                  getUnitDigit(currentPage) > 7) &&
-                  [...Array(maxPage < 3 ? maxPage : 3).keys()].map((index) => (
-                    <Link
-                      href={`/admin/videos/page/${startPage + index}`}
-                      className={`${
-                        getUnitDigit(currentPage) == index + 1 ? 'current' : ''
-                      } page`}
-                      key={index}
-                    >
-                      {startPage + index}
-                    </Link>
-                  ))}
-                {maxPage > 3 &&
-                  (getUnitDigit(currentPage) < 4 ||
-                    getUnitDigit(currentPage) > 7) && <DotsIcon />}
-                {maxPage > 3 &&
-                  getUnitDigit(currentPage) > 3 &&
-                  getUnitDigit(currentPage) < 8 && <DotsIcon />}
-                {maxPage > 3 &&
-                  getUnitDigit(currentPage) > 3 &&
-                  getUnitDigit(currentPage) < 8 &&
-                  [...Array(maxPage).keys()].map(
-                    (index) =>
-                      index > 2 &&
-                      index < 7 && (
-                        <Link
-                          href={`/admin/videos/page/${startPage + index}`}
-                          className={`${
-                            getUnitDigit(currentPage) == index + 1
-                              ? 'current'
-                              : ''
-                          } page`}
-                          key={index}
-                        >
-                          {startPage + index}
-                        </Link>
-                      ),
-                  )}
-                {maxPage > 3 &&
-                  getUnitDigit(currentPage) > 3 &&
-                  getUnitDigit(currentPage) < 8 &&
-                  currentPage != data.totalPages && <DotsIcon />}
-                {maxPage > 7 &&
-                  (getUnitDigit(currentPage) < 4 ||
-                    getUnitDigit(currentPage) > 7) &&
-                  [...Array(maxPage).keys()].map(
-                    (index) =>
-                      index > 6 && (
-                        <Link
-                          href={`/admin/videos/page/${startPage + index}`}
-                          className={`${
-                            getUnitDigit(currentPage) == index + 1
-                              ? 'current'
-                              : ''
-                          } page`}
-                          key={index}
-                        >
-                          {startPage + index}
-                        </Link>
-                      ),
-                  )}
-                {currentPage != data.totalPages && (
-                  <Link href='#' className='page'>
-                    <NextIcon />
-                  </Link>
-                )}
-                {data.totalPages > 10 && data.totalPages - startPage > 9 && (
-                  <Link href='#' className='page'>
-                    <FastNextIcon />
-                  </Link>
-                )}
-                <div className='flex items-center gap-x-2'>
-                  <div>Page</div>
-                  <input
-                    name='currentPage'
-                    className='w-20'
-                    value={!focus ? currentPage : ''}
-                    onFocus={onCurrentPageFocus}
-                    onKeyUp={onCurrentPageKeyUp}
-                    // onKeyDown={(event) => (event.target.value = event.key)}
-                    onChange={(event) => event}
-                  />
-                  <div>of {data.totalPages}</div>
-                </div>
+      <tfoot className='sticky bottom-0 opacity-95'>
+        <tr>
+          <th colSpan={headers.length}>
+            <div className='flex items-center gap-x-5'>
+              <div>
+                Total {data.totalItems}{' '}
+                {data.totalItems > 1 ? names[1] : names[0]}
               </div>
-            </th>
-          </tr>
-        </tfoot>
-      )}
+              {data.totalPages > 10 && startPage != 1 && (
+                <Link href='#' className='page'>
+                  <FastPreviousIcon />
+                </Link>
+              )}
+              {currentPage != 1 && (
+                <Link href='#' className='page'>
+                  <PreviousIcon />
+                </Link>
+              )}
+              {(getUnitDigit(currentPage) < 4 ||
+                getUnitDigit(currentPage) > 7) &&
+                [...Array(maxPage < 3 ? maxPage : 3).keys()].map((index) => (
+                  <Link
+                    href={`/admin/videos/page/${startPage + index}`}
+                    className={`${
+                      getUnitDigit(currentPage) == index + 1 ? 'current' : ''
+                    } page`}
+                    key={index}
+                  >
+                    {startPage + index}
+                  </Link>
+                ))}
+              {maxPage > 3 &&
+                (getUnitDigit(currentPage) < 4 ||
+                  getUnitDigit(currentPage) > 7) && <DotsIcon />}
+              {maxPage > 3 &&
+                getUnitDigit(currentPage) > 3 &&
+                getUnitDigit(currentPage) < 8 && <DotsIcon />}
+              {maxPage > 3 &&
+                getUnitDigit(currentPage) > 3 &&
+                getUnitDigit(currentPage) < 8 &&
+                [...Array(maxPage).keys()].map(
+                  (index) =>
+                    index > 2 &&
+                    index < 7 && (
+                      <Link
+                        href={`/admin/videos/page/${startPage + index}`}
+                        className={`${
+                          getUnitDigit(currentPage) == index + 1
+                            ? 'current'
+                            : ''
+                        } page`}
+                        key={index}
+                      >
+                        {startPage + index}
+                      </Link>
+                    ),
+                )}
+              {maxPage > 3 &&
+                getUnitDigit(currentPage) > 3 &&
+                getUnitDigit(currentPage) < 8 &&
+                currentPage != data.totalPages && <DotsIcon />}
+              {maxPage > 7 &&
+                (getUnitDigit(currentPage) < 4 ||
+                  getUnitDigit(currentPage) > 7) &&
+                [...Array(maxPage).keys()].map(
+                  (index) =>
+                    index > 6 && (
+                      <Link
+                        href={`/admin/videos/page/${startPage + index}`}
+                        className={`${
+                          getUnitDigit(currentPage) == index + 1
+                            ? 'current'
+                            : ''
+                        } page`}
+                        key={index}
+                      >
+                        {startPage + index}
+                      </Link>
+                    ),
+                )}
+              {currentPage != data.totalPages && (
+                <Link href='#' className='page'>
+                  <NextIcon />
+                </Link>
+              )}
+              {data.totalPages > 10 && data.totalPages - startPage > 9 && (
+                <Link href='#' className='page'>
+                  <FastNextIcon />
+                </Link>
+              )}
+              <div className='flex items-center gap-x-2'>
+                <div>Page</div>
+                <input
+                  name='currentPage'
+                  className='w-20'
+                  value={!focus ? currentPage : ''}
+                  onFocus={onCurrentPageFocus}
+                  onKeyUp={onCurrentPageKeyUp}
+                  // onKeyDown={(event) => (event.target.value = event.key)}
+                  onChange={(event) => event}
+                />
+                <div>of {data.totalPages}</div>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </tfoot>
     </table>
   );
 }

@@ -3,15 +3,21 @@ import * as edgedb from 'edgedb';
 export async function GET(request, { params }) {
   const page = Number(params.page);
   const client = edgedb.createClient();
-  const users = await client.query(
-    `select User { 
-      email,
-      setting: {
-        narrow_sidebar
-      }
+  const results = await client.query(
+    `select User {
+      id,
+      fullname := .first_name ++ ' ' ++ .last_name,
+      email
     }`,
   );
-  // console.log(users);
+  console.log(results);
+  const users = results.map(({ id, fullname, email }, index) => [
+    id,
+    `/admin/users/${index}`,
+    fullname,
+    email,
+  ]);
+  console.log(users);
   const totalItems = users.length;
   const itemsPerPage = 25;
   const totalPages = Math.ceil(users.length / itemsPerPage);
