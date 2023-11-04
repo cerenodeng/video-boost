@@ -17,5 +17,4 @@ npm run dev
 - React
 - Tailwind CSS
 - Next.js
-- Prisma
-- PostgreSQL
+- EdgeDB
