@@ -10,9 +10,7 @@ export async function GET(request, { params }) {
       email
     }`,
   );
-  console.log(results);
   const users = results.map(({ id, fullname, email }) => [id, fullname, email]);
-  console.log(users);
   const totalItems = users.length;
   const itemsPerPage = 25;
   const totalPages = Math.ceil(users.length / itemsPerPage);

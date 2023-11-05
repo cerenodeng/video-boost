@@ -10,7 +10,6 @@ export default function Users() {
   const [userId, setUserId] = useState(null);
 
   function returnId(id) {
-    console.log(new Date(), id);
     setUserId(id);
     setEditMode(!editMode);
   }

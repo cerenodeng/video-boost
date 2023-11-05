@@ -10,10 +10,8 @@ export default function Sidebar({ title, menus, user }) {
   const [open, setOpen] = useState();
   const [hide, setHide] = useState(true);
   const pathname = usePathname();
-  console.log(typeof window != 'undefined');
   useEffect(() => {
     const sidebarState = window.localStorage.getItem('sidebarState');
-    console.log(new Date(), sidebarState);
     if (sidebarState == null || sidebarState == 'open') {
       setOpen(true);
     } else if (sidebarState == 'close') {
@@ -26,12 +24,6 @@ export default function Sidebar({ title, menus, user }) {
     }
     const openState =
       open ?? window.localStorage.getItem('sidebarState') == 'open';
-    console.log(
-      new Date(),
-      window.localStorage.getItem('sidebarState'),
-      open,
-      openState,
-    );
     if (openState) {
       window.localStorage.setItem('sidebarState', 'open');
     } else {

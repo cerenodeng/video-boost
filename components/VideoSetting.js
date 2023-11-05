@@ -21,7 +21,6 @@ export default function VideoSetting() {
           },
         });
         const result = await response.json();
-        console.log(result);
         uploadButton.current.disabled = false;
         setFile(null);
       }
