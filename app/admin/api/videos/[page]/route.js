@@ -6,21 +6,18 @@ export async function GET(request, { params }) {
     videos.push(
       [
         index,
-        '/admin/videos/0',
         'Product Introduction #' + (3 * i + 1),
         'https://www.china.com',
         Number(15319).toLocaleString('en-US'),
       ],
       [
         index + 1,
-        '/admin/videos/1',
         'Call to Action #' + (3 * i + 2),
         'https://www.alibaba.com',
         Number(7215).toLocaleString('en-US'),
       ],
       [
         index + 2,
-        '/admin/videos/2',
         'Customer Service #' + (3 * i + 3),
         'https://www.lenovo.com',
         Number(3862).toLocaleString('en-US'),
