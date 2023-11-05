@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
@@ -20,7 +19,7 @@ import {
 
 const queryClient = new QueryClient();
 
-function Table({ headers, names, path }) {
+function Table({ headers, names, path, returnId }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [startPage, setStartPage] = useState();
   const [maxPage, setMaxPage] = useState();
@@ -102,11 +101,6 @@ function Table({ headers, names, path }) {
     return result == 0 ? 10 : result;
   }
 
-  function onRowClick(event) {
-    event.preventDefault();
-    location = event.currentTarget.dataset.link;
-  }
-
   function onCurrentPageFocus(event) {
     event.preventDefault();
     event.target.value = '';
@@ -142,9 +136,9 @@ function Table({ headers, names, path }) {
       </thead>
       <tbody>
         {data.items.map((item) => (
-          <tr data-link={item[1]} onClick={onRowClick} key={item[0]}>
-            {[...Array(item.length - 2).keys()].map((key, index) => (
-              <td key={index}>{item[key + 2]}</td>
+          <tr onClick={() => returnId(item[0])} key={item[0]}>
+            {[...Array(item.length - 1).keys()].map((key, index) => (
+              <td key={index}>{item[key + 1]}</td>
             ))}
           </tr>
         ))}
@@ -179,7 +173,7 @@ function Table({ headers, names, path }) {
                 getUnitDigit(currentPage) > 7) &&
                 [...Array(maxPage < 3 ? maxPage : 3).keys()].map((index) => (
                   <Link
-                    href={`/admin/videos/page/${startPage + index}`}
+                    href={`/admin/${path}/page/${startPage + index}`}
                     className={`${
                       getUnitDigit(currentPage) == index + 1 ? 'current' : ''
                     } page`}
@@ -202,7 +196,7 @@ function Table({ headers, names, path }) {
                     index > 2 &&
                     index < 7 && (
                       <Link
-                        href={`/admin/videos/page/${startPage + index}`}
+                        href={`/admin/${path}/page/${startPage + index}`}
                         className={`${
                           getUnitDigit(currentPage) == index + 1
                             ? 'current'
@@ -225,7 +219,7 @@ function Table({ headers, names, path }) {
                   (index) =>
                     index > 6 && (
                       <Link
-                        href={`/admin/videos/page/${startPage + index}`}
+                        href={`/admin/${path}/page/${startPage + index}`}
                         className={`${
                           getUnitDigit(currentPage) == index + 1
                             ? 'current'
@@ -268,10 +262,10 @@ function Table({ headers, names, path }) {
   );
 }
 
-export default function DataTable({ headers, names, path }) {
+export default function DataTable({ headers, names, path, returnId }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Table headers={headers} names={names} path={path} />
+      <Table headers={headers} names={names} path={path} returnId={returnId} />
     </QueryClientProvider>
   );
 }
