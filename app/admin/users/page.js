@@ -11,18 +11,20 @@ export default function Users() {
 
   function returnId(id) {
     setUserId(id);
-    setEditMode(!editMode);
+    setEditMode(true);
   }
 
   return (
-    <>
+    <div className='flex'>
       {editMode && <UserEdit id={userId} />}
-      <DataTable
-        headers={headers}
-        names={names}
-        path='users'
-        returnId={returnId}
-      />
-    </>
+      <div className={editMode && `ml-96`}>
+        <DataTable
+          headers={headers}
+          names={names}
+          path='users'
+          returnId={returnId}
+        />
+      </div>
+    </div>
   );
 }
