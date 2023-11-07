@@ -1,15 +1,23 @@
+import { CloseIcon } from './Icon';
 import Input from './Input';
 
-export default function UserEdit({ id }) {
+export default function UserEdit({ id, close }) {
   return (
     <div className='fixed h-screen w-96 overflow-auto border-r border-neutral-200'>
-      <div className='flex flex-col gap-y-6 p-10'>
+      <div className='flex flex-col gap-y-6 px-10 py-5'>
+        <div className='flex justify-between'>
+          <h3>Edit User</h3>
+          <button onClick={close}>
+            <CloseIcon />
+          </button>
+        </div>
         <Input
           label='First Name'
           name='firstName'
           defaultValue=''
           placeholder='First name'
           returnValue={() => {}}
+          occupy
         />
         <Input
           label='Last Name'

@@ -10,6 +10,10 @@ h2 {
   @apply text-2xl font-semibold;
 }
 
+h3 {
+  @apply text-xl font-semibold;
+}
+
 table {
   @apply table-fixed divide-y divide-neutral-200 border-b border-neutral-200;
 }
