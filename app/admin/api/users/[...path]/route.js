@@ -1,15 +1,15 @@
 import * as edgedb from 'edgedb';
 
 export async function GET(request, { params }) {
+  const client = edgedb.createClient();
   if (params.path[0] == 'page') {
     const page = Number(params.path[1]);
-    const client = edgedb.createClient();
     const results = await client.query(
       `select User {
-      id,
-      fullname := .first_name ++ ' ' ++ .last_name,
-      email
-    }`,
+        id,
+        fullname := .first_name ++ ' ' ++ .last_name,
+        email
+      }`,
     );
     const users = results.map(({ id, fullname, email }) => [
       id,
@@ -31,5 +31,21 @@ export async function GET(request, { params }) {
       currentPage,
       items,
     });
+  } else {
+    const id = params.path[0];
+    const result = await client.query(
+      `select User {
+        first_name,
+        last_name,
+        email,
+        setting: {
+          narrow_sidebar
+        }
+      }
+      filter .id = <uuid>'${id}'
+      `,
+    );
+    console.log(result[0]);
+    return Response.json(result[0]);
   }
 }
