@@ -1,7 +1,46 @@
-import { CloseIcon } from './Icon';
+'use client';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { AlertIcon, CloseIcon, LoadingIcon } from './Icon';
 import Input from './Input';
 
-export default function UserEdit({ id, close }) {
+const queryClient = new QueryClient();
+
+function User({ id, close }) {
+  const queryClient = useQueryClient();
+  queryClient.setQueryDefaults(['items'], { queryFn: getItems });
+  const { isPending, isError, data, error } = useQuery({ queryKey: ['items'] });
+
+  async function getItems() {
+    const response = await fetch(`/admin/api/users/${id}`);
+    if (!response.ok) {
+      throw new Error(`error to get users api`);
+    }
+    return response.json();
+  }
+
+  if (isPending) {
+    return (
+      <div className='fixed flex h-screen w-96 items-center justify-center gap-x-3 overflow-auto border-r border-neutral-200'>
+        <LoadingIcon />
+        <div>Loading ...</div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className='fixed flex h-screen w-96 items-center justify-center gap-x-3 overflow-auto border-r border-neutral-200'>
+        <AlertIcon />
+        <div>{error.message}</div>
+      </div>
+    );
+  }
+
   return (
     <div className='fixed h-screen w-96 overflow-auto border-r border-neutral-200'>
       <div className='flex flex-col gap-y-6 px-10 py-5'>
@@ -14,7 +53,7 @@ export default function UserEdit({ id, close }) {
         <Input
           label='First Name'
           name='firstName'
-          defaultValue=''
+          defaultValue={data.first_name}
           placeholder='First name'
           returnValue={() => {}}
           occupy
@@ -22,7 +61,7 @@ export default function UserEdit({ id, close }) {
         <Input
           label='Last Name'
           name='lastName'
-          defaultValue=''
+          defaultValue={data.last_name}
           placeholder='Last name'
           returnValue={() => {}}
           occupy
@@ -31,19 +70,11 @@ export default function UserEdit({ id, close }) {
           label='Email'
           name='email'
           type='email'
-          defaultValue=''
+          defaultValue={data.email}
           placeholder='Email'
           returnValue={() => {}}
           occupy
         />
-        {/* <Input label='Test' name='test' returnValue={() => {}} occupy />
-        <Input label='Test' name='test' returnValue={() => {}} occupy />
-        <Input label='Test' name='test' returnValue={() => {}} occupy />
-        <Input label='Test' name='test' returnValue={() => {}} occupy />
-        <Input label='Test' name='test' returnValue={() => {}} occupy />
-        <Input label='Test' name='test' returnValue={() => {}} occupy />
-        <Input label='Test' name='test' returnValue={() => {}} occupy />
-        <Input label='Test' name='test' returnValue={() => {}} occupy /> */}
       </div>
       <div className='fixed -bottom-px flex w-96 justify-between bg-neutral-200 p-5 text-xl font-semibold opacity-90'>
         <button className='w-28 bg-neutral-500 px-5 py-2.5 text-neutral-100 hover:bg-neutral-700'>
@@ -54,5 +85,13 @@ export default function UserEdit({ id, close }) {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function UserEdit({ id, close }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <User id={id} close={close} />
+    </QueryClientProvider>
   );
 }

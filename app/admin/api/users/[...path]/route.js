@@ -45,7 +45,6 @@ export async function GET(request, { params }) {
       filter .id = <uuid>'${id}'
       `,
     );
-    console.log(result[0]);
     return Response.json(result[0]);
   }
 }
