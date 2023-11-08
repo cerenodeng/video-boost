@@ -35,7 +35,7 @@ function Table({ headers, names, path, returnId }) {
   }, [startPage, currentPage, data?.totalPages]);
 
   async function getItems() {
-    const response = await fetch(`/admin/api/${path}/${currentPage}`);
+    const response = await fetch(`/admin/api/${path}/page/${currentPage}`);
     if (!response.ok) {
       throw new Error(`error to get ${path} api`);
     }
