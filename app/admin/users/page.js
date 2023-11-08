@@ -17,7 +17,7 @@ export default function Users() {
   return (
     <div className='flex'>
       {editMode && <UserEdit id={userId} close={() => setEditMode(false)} />}
-      <div className={editMode && `ml-96`}>
+      <div className={editMode ? 'ml-96' : ''}>
         <DataTable
           headers={headers}
           names={names}
