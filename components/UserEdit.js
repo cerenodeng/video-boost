@@ -7,13 +7,16 @@ import {
 } from '@tanstack/react-query';
 import { AlertIcon, CloseIcon, LoadingIcon } from './Icon';
 import Input from './Input';
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
 function User({ id, close }) {
   const queryClient = useQueryClient();
-  queryClient.setQueryDefaults(['items'], { queryFn: getItems });
-  const { isPending, isError, data, error } = useQuery({ queryKey: ['items'] });
+  queryClient.setQueryDefaults([id], { queryFn: getItems });
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: [id],
+  });
 
   async function getItems() {
     const response = await fetch(`/admin/api/users/${id}`);

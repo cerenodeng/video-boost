@@ -15,6 +15,7 @@ export default function Input({
   const [value, setValue] = useState(defaultValue ?? '');
   useEffect(() => {
     if (defaultValue ?? false ? true : false) {
+      setValue(defaultValue);
       returnValue(name, uuid, defaultValue);
     }
   }, [defaultValue, name, uuid, returnValue]);
