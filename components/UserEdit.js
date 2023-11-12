@@ -47,9 +47,19 @@ function User({ id, close }) {
     });
   }
 
-  function save(event) {
+  async function save(event) {
     event.preventDefault();
-    console.log(values);
+    const response = await fetch(`/admin/api/users/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
+    if (!response.ok) {
+      throw new Error(`error to post users api`);
+    }
+    console.log(await response.json());
   }
 
   if (isPending) {

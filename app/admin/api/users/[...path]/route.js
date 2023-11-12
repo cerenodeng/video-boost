@@ -4,13 +4,13 @@ export async function GET(request, { params }) {
   const client = edgedb.createClient();
   if (params.path[0] == 'page') {
     const page = Number(params.path[1]);
-    const results = await client.query(
-      `select User {
+    const results = await client.query(`
+      select User {
         id,
         fullname := .first_name ++ ' ' ++ .last_name,
         email
-      }`,
-    );
+      }
+    `);
     const users = results.map(({ id, fullname, email }) => [
       id,
       fullname,
@@ -33,8 +33,8 @@ export async function GET(request, { params }) {
     });
   } else {
     const id = params.path[0];
-    const result = await client.query(
-      `select User {
+    const result = await client.query(`
+      select User {
         first_name,
         last_name,
         email,
@@ -43,8 +43,23 @@ export async function GET(request, { params }) {
         }
       }
       filter .id = <uuid>'${id}'
-      `,
-    );
+    `);
     return Response.json(result[0]);
   }
+}
+
+export async function POST(request, { params }) {
+  const client = edgedb.createClient();
+  const { firstName, lastName, email } = await request.json();
+  const id = params.path[0];
+  const result = await client.query(`
+    update User
+    filter .id = <uuid>'${id}'
+    set {
+      first_name := '${firstName}',
+      last_name := '${lastName}',
+      email := '${email}'
+    }
+  `);
+  return Response.json(result[0]);
 }
