@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query';
 import { AlertIcon, CloseIcon, LoadingIcon } from './Icon';
 import Input from './Input';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -17,6 +17,20 @@ function User({ id, close }) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: [id],
   });
+  const [values, setValues] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+  useEffect(() => {
+    if (data != undefined) {
+      setValues({
+        firstName: data.first_name,
+        lastName: data.last_name,
+        email: data.email,
+      });
+    }
+  }, [data]);
 
   async function getItems() {
     const response = await fetch(`/admin/api/users/${id}`);
@@ -24,6 +38,18 @@ function User({ id, close }) {
       throw new Error(`error to get users api`);
     }
     return response.json();
+  }
+
+  function returnValue(name, id, value) {
+    setValues((values) => {
+      values[name] = value;
+      return values;
+    });
+  }
+
+  function save(event) {
+    event.preventDefault();
+    console.log(values);
   }
 
   if (isPending) {
@@ -58,7 +84,8 @@ function User({ id, close }) {
           name='firstName'
           defaultValue={data.first_name}
           placeholder='First name'
-          returnValue={() => {}}
+          uuid={id}
+          returnValue={returnValue}
           occupy
         />
         <Input
@@ -66,7 +93,8 @@ function User({ id, close }) {
           name='lastName'
           defaultValue={data.last_name}
           placeholder='Last name'
-          returnValue={() => {}}
+          uuid={id}
+          returnValue={returnValue}
           occupy
         />
         <Input
@@ -75,12 +103,16 @@ function User({ id, close }) {
           type='email'
           defaultValue={data.email}
           placeholder='Email'
-          returnValue={() => {}}
+          uuid={id}
+          returnValue={returnValue}
           occupy
         />
       </div>
       <div className='fixed -bottom-px flex w-96 justify-between bg-neutral-200 p-5 text-xl font-semibold opacity-90'>
-        <button className='w-28 bg-neutral-500 px-5 py-2.5 text-neutral-100 hover:bg-neutral-700'>
+        <button
+          className='w-28 bg-neutral-500 px-5 py-2.5 text-neutral-100 hover:bg-neutral-700'
+          onClick={save}
+        >
           Save
         </button>
         <button className='w-28 bg-red-300 px-5 py-2.5 text-neutral-100 hover:bg-red-500'>
