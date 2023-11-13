@@ -31,6 +31,7 @@ function User({ id, close }) {
       });
     }
   }, [data]);
+  const [saving, setSaving] = useState(false);
 
   async function getItems() {
     const response = await fetch(`/admin/api/users/${id}`);
@@ -49,17 +50,25 @@ function User({ id, close }) {
 
   async function save(event) {
     event.preventDefault();
-    const response = await fetch(`/admin/api/users/${id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-    if (!response.ok) {
-      throw new Error(`error to post users api`);
+    if (!saving) {
+      setSaving(true);
+      const response = await fetch(`/admin/api/users/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      if (!response.ok) {
+        console.log('error to post users api');
+      } else {
+        const { id } = await response.json();
+        if (id != undefined) {
+          console.log(id);
+        }
+      }
+      setSaving(false);
     }
-    console.log(await response.json());
   }
 
   if (isPending) {
@@ -120,10 +129,12 @@ function User({ id, close }) {
       </div>
       <div className='fixed -bottom-px flex w-96 justify-between bg-neutral-200 p-5 text-xl font-semibold opacity-90'>
         <button
-          className='w-28 bg-neutral-500 px-5 py-2.5 text-neutral-100 hover:bg-neutral-700'
+          className={`${
+            saving ? 'cursor-default bg-neutral-700' : 'bg-neutral-500'
+          } flex w-28 items-center justify-center px-5 py-2.5 text-neutral-100 hover:bg-neutral-700`}
           onClick={save}
         >
-          Save
+          {saving ? <LoadingIcon /> : 'Save'}
         </button>
         <button className='w-28 bg-red-300 px-5 py-2.5 text-neutral-100 hover:bg-red-500'>
           Delete
