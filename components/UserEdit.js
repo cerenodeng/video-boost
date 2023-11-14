@@ -53,14 +53,14 @@ function User({ id, close }) {
     if (!saving) {
       setSaving(true);
       const response = await fetch(`/admin/api/users/${id}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
       if (!response.ok) {
-        console.log('error to post users api');
+        console.log('error to put users api');
       } else {
         const { id } = await response.json();
         if (id != undefined) {

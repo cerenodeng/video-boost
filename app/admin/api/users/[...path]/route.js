@@ -48,7 +48,7 @@ export async function GET(request, { params }) {
   }
 }
 
-export async function POST(request, { params }) {
+export async function PUT(request, { params }) {
   const client = edgedb.createClient();
   const { firstName, lastName, email } = await request.json();
   const id = params.path[0];
