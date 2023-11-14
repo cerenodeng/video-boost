@@ -101,7 +101,7 @@ function User({ id, close }) {
         <Input
           label='First Name'
           name='firstName'
-          defaultValue={data.first_name}
+          defaultValue={values.firstName}
           placeholder='First name'
           uuid={id}
           returnValue={returnValue}
@@ -110,7 +110,7 @@ function User({ id, close }) {
         <Input
           label='Last Name'
           name='lastName'
-          defaultValue={data.last_name}
+          defaultValue={values.lastName}
           placeholder='Last name'
           uuid={id}
           returnValue={returnValue}
@@ -120,7 +120,7 @@ function User({ id, close }) {
           label='Email'
           name='email'
           type='email'
-          defaultValue={data.email}
+          defaultValue={values.email}
           placeholder='Email'
           uuid={id}
           returnValue={returnValue}
