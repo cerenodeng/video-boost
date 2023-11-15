@@ -36,7 +36,7 @@ function User({ id, close }) {
   async function getItems() {
     const response = await fetch(`/admin/api/users/${id}`);
     if (!response.ok) {
-      throw new Error(`error to get users api`);
+      throw new Error('error to get users api');
     }
     return response.json();
   }
@@ -101,7 +101,7 @@ function User({ id, close }) {
         <Input
           label='First Name'
           name='firstName'
-          defaultValue={values.firstName}
+          defaultValue={data.first_name}
           placeholder='First name'
           uuid={id}
           returnValue={returnValue}
@@ -110,7 +110,7 @@ function User({ id, close }) {
         <Input
           label='Last Name'
           name='lastName'
-          defaultValue={values.lastName}
+          defaultValue={data.last_name}
           placeholder='Last name'
           uuid={id}
           returnValue={returnValue}
@@ -120,7 +120,7 @@ function User({ id, close }) {
           label='Email'
           name='email'
           type='email'
-          defaultValue={values.email}
+          defaultValue={data.email}
           placeholder='Email'
           uuid={id}
           returnValue={returnValue}

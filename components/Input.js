@@ -12,10 +12,10 @@ export default function Input({
   returnValue,
 }) {
   const [empty, setEmpty] = useState(!(defaultValue ?? false) ? true : false);
-  const [value, setValue] = useState(defaultValue ?? '');
+  // const [value, setValue] = useState(defaultValue ?? '');
   useEffect(() => {
     if (defaultValue ?? false ? true : false) {
-      setValue(defaultValue);
+      // setValue(defaultValue);
       returnValue(name, uuid, defaultValue);
     }
   }, [defaultValue, name, uuid, returnValue]);
@@ -38,10 +38,11 @@ export default function Input({
         placeholder={placeholder}
         type={type ?? 'text'}
         uuid={uuid}
-        value={value}
+        // value={value}
+        defaultValue={defaultValue}
         onChange={(event) => {
           event.target.value == '' ? setEmpty(true) : setEmpty(false);
-          setValue(event.target.value);
+          // setValue(event.target.value);
           returnValue(name, uuid, event.target.value);
         }}
       />
