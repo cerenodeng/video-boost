@@ -24,6 +24,7 @@ export async function GET(request, { params }) {
       itemsPerPage * (currentPage - 1),
       itemsPerPage * currentPage,
     );
+
     return Response.json({
       totalItems,
       itemsPerPage,
@@ -44,6 +45,7 @@ export async function GET(request, { params }) {
       }
       filter .id = <uuid>'${id}'
     `);
+
     return Response.json(result[0]);
   }
 }
@@ -61,5 +63,17 @@ export async function PUT(request, { params }) {
       email := '${email}'
     }
   `);
+
+  return Response.json(result[0]);
+}
+
+export async function DELETE(request, { params }) {
+  const client = edgedb.createClient();
+  const id = params.path[0];
+  const result = await client.query(`
+    delete User
+    filter .id = <uuid>'${id}'
+  `);
+
   return Response.json(result[0]);
 }

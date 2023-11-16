@@ -71,6 +71,24 @@ function User({ id, close }) {
     }
   }
 
+  async function del(event) {
+    event.preventDefault();
+    const response = await fetch(`/admin/api/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      console.log('error to delete users api');
+    } else {
+      const { id } = await response.json();
+      if (id != undefined) {
+        console.log(id);
+      }
+    }
+  }
+
   if (isPending) {
     return (
       <div className='fixed flex h-screen w-96 items-center justify-center gap-x-3 overflow-auto border-r border-neutral-200'>
@@ -136,7 +154,10 @@ function User({ id, close }) {
         >
           {saving ? <LoadingIcon /> : 'Save'}
         </button>
-        <button className='w-28 bg-red-300 px-5 py-2.5 text-neutral-100 hover:bg-red-500'>
+        <button
+          className='w-28 bg-red-300 px-5 py-2.5 text-neutral-100 hover:bg-red-500'
+          onClick={del}
+        >
           Delete
         </button>
       </div>
