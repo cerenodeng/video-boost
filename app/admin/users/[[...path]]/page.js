@@ -3,10 +3,16 @@ import DataTable from '@/components/DataTable';
 import UserEdit from '@/components/UserEdit';
 import { useState } from 'react';
 
-export default function Users() {
+export default function Users({ params }) {
+  let defaultEditMode;
+  if (params.path && params.path[0] == 'add') {
+    defaultEditMode = true;
+  } else {
+    defaultEditMode = false;
+  }
   const headers = ['Name', 'Email'];
   const names = ['user', 'users'];
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(defaultEditMode);
   const [userId, setUserId] = useState(null);
 
   function returnId(id) {
