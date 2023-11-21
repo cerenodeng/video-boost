@@ -50,6 +50,24 @@ export async function GET(request, { params }) {
   }
 }
 
+export async function POST(request, { params }) {
+  if (params.path[0] == 'add') {
+    const client = edgedb.createClient();
+    const { firstName, lastName, email } = await request.json();
+    const result = await client.query(`
+    insert User {
+      first_name := '${firstName}',
+      last_name := '${lastName}',
+      email := '${email}'
+    }
+  `);
+
+    return Response.json(result[0]);
+  } else {
+    return Response.json(0);
+  }
+}
+
 export async function PUT(request, { params }) {
   const client = edgedb.createClient();
   const { firstName, lastName, email } = await request.json();

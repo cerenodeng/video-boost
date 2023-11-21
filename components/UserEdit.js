@@ -8,7 +8,6 @@ import {
 import { AlertIcon, CloseIcon, LoadingIcon } from './Icon';
 import Input from './Input';
 import { useEffect, useState } from 'react';
-import { redirect } from 'next/navigation';
 
 const queryClient = new QueryClient();
 
@@ -201,7 +200,7 @@ function UserAdd() {
         }
       }
       setSaving(false);
-      redirect('/admin/users');
+      location.assign('/admin/users');
     }
   }
 
