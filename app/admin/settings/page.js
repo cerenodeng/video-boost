@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Input from '@/components/Input';
+import Radio from '@/components/Radio';
 
 export default function Settings() {
   const [values, setValues] = useState({
@@ -49,6 +50,13 @@ export default function Settings() {
           // uuid={id}
           returnValue={returnValue}
           occupy
+        />
+        <Radio
+          label='Sidebar Width'
+          name='sideWidth'
+          values={['narrow', 'wide']}
+          defaultValue={'wide'}
+          returnValue={returnValue}
         />
       </div>
     </div>
