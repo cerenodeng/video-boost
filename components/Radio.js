@@ -20,7 +20,7 @@ export default function Radio({
               item == value
                 ? 'bg-emerald-300 text-white'
                 : 'bg-neutral-300 hover:bg-emerald-100'
-            } w-20 p-2 `}
+            } flex-1 p-3 `}
             key={index}
             onClick={() => {
               setValue(item);
