@@ -24,7 +24,7 @@ export default function Radio({
             key={index}
             onClick={() => {
               setValue(item);
-              returnValue(name, item);
+              returnValue(name, null, item);
             }}
           >
             {item}
