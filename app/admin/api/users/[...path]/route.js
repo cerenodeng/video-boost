@@ -70,7 +70,7 @@ export async function POST(request, { params }) {
 
 export async function PUT(request, { params }) {
   const client = edgedb.createClient();
-  const { firstName, lastName, email } = await request.json();
+  const { firstName, lastName, email, narrowSidebar } = await request.json();
   const id = params.path[0];
   const result = await client.query(`
     update User
@@ -78,7 +78,10 @@ export async function PUT(request, { params }) {
     set {
       first_name := '${firstName}',
       last_name := '${lastName}',
-      email := '${email}'
+      email := '${email}',
+      setting: {
+        narrow_sidebar := '${narrowSidebar}'
+      }
     }
   `);
 

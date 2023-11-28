@@ -35,6 +35,26 @@ function Settings() {
       });
     }
   }, [data]);
+  useEffect(() => {
+    async function updateSetting() {
+      const response = await fetch(`/admin/api/users/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      if (!response.ok) {
+        console.log('error to put users api');
+      } else {
+        const { id } = await response.json();
+        if (id != undefined) {
+          console.log(id);
+        }
+      }
+    }
+    updateSetting();
+  }, [values]);
 
   async function getItem() {
     const response = await fetch(`/admin/api/users/${id}`);
@@ -45,10 +65,13 @@ function Settings() {
   }
 
   function returnValue(name, id, value) {
-    setValues((values) => {
-      values[name] = value;
-      return values;
-    });
+    const updatedValue = {};
+    if (name == 'sideWidth') {
+      updatedValue['narrowSidebar'] = value == 'narrow' ? true : false;
+    } else {
+      updatedValue[name] = value;
+    }
+    setValues({ ...values, ...updatedValue });
   }
 
   if (isPending) {
@@ -71,6 +94,7 @@ function Settings() {
 
   return (
     <div className='fixed h-screen w-96 overflow-auto border-r border-neutral-200'>
+      {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
       <div className='flex flex-col gap-y-6 px-10 py-5'>
         <div className='flex justify-between'>
           <h3>Setting</h3>
