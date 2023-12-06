@@ -231,7 +231,7 @@ function Table({ headers, names, path, returnId }) {
                       </Link>
                     ),
                 )}
-              {currentPage != data.totalPages && (
+              {data.totalPages > 0 && currentPage != data.totalPages && (
                 <Link href='#' className='page'>
                   <NextIcon />
                 </Link>
@@ -241,19 +241,21 @@ function Table({ headers, names, path, returnId }) {
                   <FastNextIcon />
                 </Link>
               )}
-              <div className='flex items-center gap-x-2'>
-                <div>Page</div>
-                <input
-                  name='currentPage'
-                  className='w-20'
-                  value={!focus ? currentPage : ''}
-                  onFocus={onCurrentPageFocus}
-                  onKeyUp={onCurrentPageKeyUp}
-                  // onKeyDown={(event) => (event.target.value = event.key)}
-                  onChange={(event) => event}
-                />
-                <div>of {data.totalPages}</div>
-              </div>
+              {data.totalPages > 0 && (
+                <div className='flex items-center gap-x-2'>
+                  <div>Page</div>
+                  <input
+                    name='currentPage'
+                    className='w-20'
+                    value={!focus ? currentPage : ''}
+                    onFocus={onCurrentPageFocus}
+                    onKeyUp={onCurrentPageKeyUp}
+                    // onKeyDown={(event) => (event.target.value = event.key)}
+                    onChange={(event) => event}
+                  />
+                  <div>of {data.totalPages}</div>
+                </div>
+              )}
             </div>
           </th>
         </tr>
