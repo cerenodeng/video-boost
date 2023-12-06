@@ -13,7 +13,7 @@ import Radio from '@/components/Radio';
 const queryClient = new QueryClient();
 
 function Settings() {
-  const id = 'c4194388-7802-11ee-b1ec-9f3b2547f2e0';
+  const id = '691a8c4e-9454-11ee-9532-43c16f957422';
   const queryClient = useQueryClient();
   queryClient.setQueryDefaults([id], { queryFn: getItem });
   const { isPending, isError, data, error } = useQuery({
@@ -131,7 +131,7 @@ function Settings() {
           label='Sidebar Width'
           name='sideWidth'
           values={['narrow', 'wide']}
-          defaultValue={data.narrowSidebar ? 'narrow' : 'wide'}
+          defaultValue={data.setting.narrow_sidebar ? 'narrow' : 'wide'}
           returnValue={returnValue}
         />
       </div>
