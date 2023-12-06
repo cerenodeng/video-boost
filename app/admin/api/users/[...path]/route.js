@@ -58,7 +58,12 @@ export async function POST(request, { params }) {
     insert User {
       first_name := '${firstName}',
       last_name := '${lastName}',
-      email := '${email}'
+      email := '${email}',
+      setting := (
+        insert Setting {
+          narrow_sidebar := false
+        }
+      )
     }
   `);
 
