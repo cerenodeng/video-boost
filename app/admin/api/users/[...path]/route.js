@@ -78,15 +78,20 @@ export async function PUT(request, { params }) {
   const { firstName, lastName, email, narrowSidebar } = await request.json();
   const id = params.path[0];
   const result = await client.query(`
+    with user := (select User {setting} filter User.id = <uuid>'${id}')
     update User
     filter .id = <uuid>'${id}'
     set {
       first_name := '${firstName}',
       last_name := '${lastName}',
       email := '${email}',
-      setting: {
-        narrow_sidebar := '${narrowSidebar}'
-      }
+      setting := (
+        update Setting 
+        filter .id = user.setting.id
+        set {
+          narrow_sidebar := ${narrowSidebar}
+        }
+      )
     }
   `);
 
