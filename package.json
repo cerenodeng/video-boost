@@ -9,22 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.25.0",
-    "autoprefixer": "10.4.18",
-    "axios": "^1.6.7",
-    "edgedb": "^1.4.1",
+    "@tanstack/react-query": "^5.50.1",
+    "autoprefixer": "10.4.19",
+    "axios": "^1.7.2",
+    "edgedb": "^1.5.7",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.1.2",
-    "next": "14.1.2",
-    "postcss": "8.4.35",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.4.1",
-    "uuid": "^9.0.1"
+    "eslint-config-next": "14.2.4",
+    "next": "14.2.4",
+    "postcss": "8.4.39",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwindcss": "3.4.4",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@edgedb/generate": "^0.4.1",
-    "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.11"
+    "@edgedb/generate": "^0.5.3",
+    "prettier": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.5"
   }
 }
